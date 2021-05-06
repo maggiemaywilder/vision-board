@@ -10,7 +10,11 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      // define association here
+      Board.hasMany(models.Note);
+
+      Board.belongsTo(models.User, {
+        foreignKey: 'userId'
+      });
     }
   };
   Board.init({
@@ -18,8 +22,14 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.INTEGER,
       autoIncrement: true
     },
-    name: DataTypes.STRING,
-    topic: DataTypes.STRING,
+    name: {
+      type:DataTypes.STRING,
+      allowNull: false,
+    },
+    topic: {
+      type:DataTypes.STRING,
+      allowNull: false,
+    },
     userId: DataTypes.INTEGER
   }, {
     sequelize,
