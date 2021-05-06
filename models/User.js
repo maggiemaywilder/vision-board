@@ -1,7 +1,7 @@
 'use strict';
-const {
-  Model
-} = require('sequelize');
+const { Model } = require('sequelize');
+const bcrypt = require('bcryptjs');
+
 module.exports = (sequelize, DataTypes) => {
   class User extends Model {
     /**
@@ -10,9 +10,12 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      // define association here
+      User.hasMany(models.Board, {
+        foreignKey: 'userId'
+      })
     }
   };
+  
   User.init({
     id: {
       type: DataTypes.INTEGER,
@@ -35,14 +38,27 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING,
       unique: true,
       allowNull: false,
+      validate: {
+        isEmail: true
+    }
     },
     password: {
       type:DataTypes.STRING,
       allowNull: false,
     }
   }, {
+    onDelete: 'cascade',
     sequelize,
     modelName: 'User',
   });
+
+  User.prototype.validPassword = function (password) {
+    return bcrypt.compareSync(password, this.password);
+  };
+
+  User.addHook('beforeCreate', (user) => {
+    user.password = bcrypt.hashSync(user.password, bcrypt.genSaltSync(10), null);
+  });
+  
   return User;
 };
