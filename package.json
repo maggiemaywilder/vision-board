@@ -15,12 +15,17 @@
   },
   "dependencies": {
     "axios": "^0.21.1",
+    "bcryptjs": "^2.4.3",
     "concurrently": "^6.0.2",
     "express": "^4.17.1",
     "if-env": "^1.0.4",
+    "mysql2": "^2.2.5",
     "nodemon": "^2.0.7",
     "passport": "^0.4.1",
     "passport-local": "^1.0.0",
     "sequelize": "^6.6.2"
+  },
+  "devDependencies": {
+    "sequelize-cli": "^6.2.0"
   }
 }
