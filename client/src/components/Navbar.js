@@ -1,5 +1,4 @@
 import { Navbar, NavItem, SideNav, SideNavItem, Dropdown, Button, Icon } from 'react-materialize';
-import 'materialize-css';
 
 function Nav() {
     return (
