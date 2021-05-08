@@ -1,8 +1,6 @@
 import { Navbar, NavItem, Icon } from 'react-materialize';
-// import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
 import { Link } from 'react-router-dom'
-// import LoginPage from './LoginPage';
-// import SignupPage from './SignupPage';
+
 
 
 function SignupNav() {

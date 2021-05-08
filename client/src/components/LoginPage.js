@@ -7,12 +7,14 @@ function LoginPage() {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
 
-    const handleSignin = () => {
-        if (document.querySelector('#userEmail').classList.includes('invalid')) {
+    const handleSignin = (e) => {
+        e.preventDefault();
+        if (document.querySelector('#userEmail').classList.contains('invalid')) {
             M.toast({html: "Oops! Looks like that email is invalid. Try again."});
             setEmail("");
         } else {
-        console.log(`Email: ${email}, Password: ${password}`)
+            console.log(`Email: ${email}, Password: ${password}`);
+            window.location.href = '/boards';
         }
     }
     return (
@@ -26,7 +28,7 @@ function LoginPage() {
                     >
                         <CardPanel className="teal">
                             <span className="white-text">
-                                Welcome to Vision Boarder! Sign in with your email address and password below.
+                                Welcome back to Vision Boarder! Sign in with your email address and password below.
                             </span>
                         </CardPanel>
                     </Col>
@@ -39,6 +41,7 @@ function LoginPage() {
                         <Row>
                             <TextInput
                                 email
+                                validate
                                 id="userEmail"
                                 name="email"
                                 label="Email"
@@ -65,7 +68,7 @@ function LoginPage() {
                                 }}
                                 waves="light"
                             >
-                                
+                            Sign in 
                             </Button>
                         </Row>
                     </Col>

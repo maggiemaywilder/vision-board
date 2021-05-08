@@ -1,18 +1,10 @@
 import { Navbar, NavItem, SideNav, SideNavItem, Dropdown, Button, Icon } from 'react-materialize';
-import { BrowserRouter as Router, Route, Switch, Link } from 'react-router-dom'
-import SignupPage from './SignupPage';
-// import BoardView from './BoardView';
-import LoginPage from './LoginPage';
 
 function Nav() {
     return (
-        <Router>
-            <Route exact path="/"><SignupPage /></Route>
-            {/* <Route exact path="/home" component={BoardView} /> */}
-            <Route path="/login"><LoginPage /></Route>
             <Navbar
                 alignLinks="right"
-                brand={<Link className="brand-logo" to='/login'>Vision Boarder</Link>}
+                brand={<a className="brand-logo" href='/login'>Vision Boarder</a>}
                 id="mobile-nav"
                 menuIcon={<Icon>menu</Icon>}
                 options={{
@@ -55,13 +47,13 @@ function Nav() {
                                 }}
                                 trigger={<Button node="button">My Boards</Button>}
                             >
-                                <a href="/">
+                                <a href="#">
                                     one
                                 </a>
-                                <a href="/">
+                                <a href="#">
                                     two
                                 </a>
-                                <a href="/">
+                                <a href="#">
                                     three
                                 </a>
                             </Dropdown>
@@ -71,9 +63,9 @@ function Nav() {
                         </SideNavItem>
                         <SideNavItem divider />
                         <SideNavItem>
-                            <a href="/" id="backButton">
-                                Back    
-                            </a> 
+                            <a href="/boards" id="backButton">
+                                Back
+                            </a>
                         </SideNavItem>
                     </SideNav>
                 }
@@ -95,20 +87,22 @@ function Nav() {
                         onOpenStart: null,
                         outDuration: 250
                     }}
-                    trigger={<a href="#!">My Boards{' '}<Icon right>arrow_drop_down</Icon></a>}
-                    >
+                    trigger={<a href="#">My Boards{' '}<Icon right>arrow_drop_down</Icon></a>}
+                >
                     <a href="#">
                         one
                     </a>
                     <a href="#">
                         two
                     </a>
+                    <a href="#">
+                        three
+                    </a>
                 </Dropdown>
                 <NavItem>
-                    <Link to="/">Log out</Link>
+                    <a href="/">Log out</a>
                 </NavItem>
             </Navbar>
-        </Router>
     )
 }
 

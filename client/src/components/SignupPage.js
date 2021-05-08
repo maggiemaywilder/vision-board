@@ -26,6 +26,7 @@ function SignupPage() {
             console.log("username is " + userName);
             console.log("email is " + email);
             console.log(`password is ${password}`);
+            window.location.href = '/login'
         }  
     }
     return (
