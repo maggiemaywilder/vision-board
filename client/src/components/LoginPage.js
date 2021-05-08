@@ -7,12 +7,16 @@ import API from '../utils/API';
 
 function LoginPage(props) {
     const [email, setEmail] = useState();
-    const [password, setPassword] = useState();
+    const [password, setPassword] = useState("");
 
     useEffect(() => {
-       setEmail(props.location.state.email);
+       if (props.location.state.email) {
+        setEmail(props.location.state.email);
+       } else {
+           setEmail("");
+       }  
     }, [props.location.state.email]);
-        
+
     const handleSignin = (e) => {
         e.preventDefault();
         if (document.querySelector('#userEmail').classList.contains('invalid')) {

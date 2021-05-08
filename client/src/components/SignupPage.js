@@ -34,7 +34,7 @@ function SignupPage() {
                 console.log(res);
                 <Redirect to={{
                     pathname: "/login",
-                    state: { email: email}
+                    state: { email: email }
                 }}
                 />
             })
