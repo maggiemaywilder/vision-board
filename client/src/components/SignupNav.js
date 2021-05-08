@@ -1,14 +1,12 @@
 import { Navbar, NavItem, Icon } from 'react-materialize';
-import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
-import LoginPage from './LoginPage';
-import SignupPage from './SignupPage';
+// import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
+import { Link } from 'react-router-dom'
+// import LoginPage from './LoginPage';
+// import SignupPage from './SignupPage';
 
 
 function SignupNav() {
     return (
-        <Router>
-            <Route exact path='/'><SignupPage /></Route>
-            <Route path='/login'><LoginPage /></Route>
         <Navbar
             alignLinks="left"
             brand={<Link className="brand-logo right" to='/'>Vision Boarder</Link>}
@@ -30,7 +28,6 @@ function SignupNav() {
                  <Link to="/login">Log in</Link>
             </NavItem>
         </Navbar>
-        </Router>
     )
 }
 
