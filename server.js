@@ -14,17 +14,13 @@ if (process.env.NODE_ENV === "production") {
   app.use(express.static("client/build"));
 }
 
-require('dotenv').config();
+// Define API routes here
 
-// const db = require('./config/connection');
-
-// db.authenticate()
-//   .then(() => console.log('DB connected'))
-//   .catch(err => console.log('error'))
-
-// const User = require("./models/User");
-
-app.get('/', (req, res) => console.log('something'));
+// Send every other request to the React app
+// Define any API routes before this runs
+app.get("*", (req, res) => {
+  res.sendFile(path.join(__dirname, "./client/build/index.html"));
+});
 
 // Start the API server
 db.sequelize.sync().then(() => {
@@ -33,3 +29,7 @@ db.sequelize.sync().then(() => {
     console.log(`🌎  ==> API Server now listening on PORT ${PORT}!`);
   });  
 })
+
+
+
+
