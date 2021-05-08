@@ -1,12 +1,10 @@
 import { Navbar, NavItem, SideNav, SideNavItem, Dropdown, Button, Icon } from 'react-materialize';
-import 'materialize-css';
 
 function Nav() {
     return (
-        <>
             <Navbar
                 alignLinks="right"
-                brand={<a className="brand-logo" href="#">Vision Boarder</a>}
+                brand={<a className="brand-logo" href='/login'>Vision Boarder</a>}
                 id="mobile-nav"
                 menuIcon={<Icon>menu</Icon>}
                 options={{
@@ -60,14 +58,14 @@ function Nav() {
                                 </a>
                             </Dropdown>
                         </SideNavItem>
-                        <SideNavItem href="">
+                        <SideNavItem href="/">
                             Log out
                         </SideNavItem>
                         <SideNavItem divider />
                         <SideNavItem>
-                            <a href="" id="backButton">
-                                Back    
-                            </a> 
+                            <a href="/boards" id="backButton">
+                                Back
+                            </a>
                         </SideNavItem>
                     </SideNav>
                 }
@@ -89,20 +87,22 @@ function Nav() {
                         onOpenStart: null,
                         outDuration: 250
                     }}
-                    trigger={<a href="#!">My Boards{' '}<Icon right>arrow_drop_down</Icon></a>}
-                    >
+                    trigger={<a href="#">My Boards{' '}<Icon right>arrow_drop_down</Icon></a>}
+                >
                     <a href="#">
                         one
                     </a>
                     <a href="#">
                         two
                     </a>
+                    <a href="#">
+                        three
+                    </a>
                 </Dropdown>
-                <NavItem href="">
-                    Log out
+                <NavItem>
+                    <a href="/">Log out</a>
                 </NavItem>
             </Navbar>
-        </>
     )
 }
 
