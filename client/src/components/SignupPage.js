@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { TextInput, Row, Col, CardPanel, Button, Icon } from 'react-materialize';
+import { Redirect } from 'react-router-dom';
 import API from '../utils/API';
 import SignupNav from './SignupNav';
 import M from 'materialize-css';
@@ -29,11 +30,18 @@ function SignupPage() {
                 email: email,
                 password: password
             })
-            .then(res => console.log(res))
+            .then((res) => {
+                console.log(res);
+                <Redirect to={{
+                    pathname: "/login",
+                    state: { email: email}
+                }}
+                />
+            })
             .catch(err => console.error(err));
         };
     }
-    
+
     return (
         <>
             <SignupNav />
