@@ -3,7 +3,7 @@
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import SignupPage from './components/SignupPage';
 import LoginPage from './components/LoginPage';
-import BoardView from './components/BoardView';
+import NewBoard from './components/NewBoard';
 
 function App() {
   return (
@@ -12,7 +12,7 @@ function App() {
       <Switch>
         <Route exact path='/'><SignupPage /></Route>
         <Route path='/login'><LoginPage /></Route>
-        <Route path='/boards'><BoardView /></Route>
+        <Route path='/boards'><NewBoard /></Route>
       </Switch>
       </Router>
     </div>

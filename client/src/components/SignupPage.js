@@ -5,7 +5,7 @@ import M from 'materialize-css';
 
 function SignupPage() {
     const [userName, setUsername] = useState();
-    let [email, setEmail] = useState();
+    const [email, setEmail] = useState();
     const [password, setPassword] = useState();
     const [confirmPassword, setConfirmPassword] = useState();
 
