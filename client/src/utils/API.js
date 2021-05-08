@@ -15,8 +15,8 @@ export default {
     return axios.get("/api/users/")
   },
   // Gets user with given uid
-  getUser: function(uid) {
-    return axios.get("/api/books" + uid);
+  getUser: function(userEmail) {
+    return axios.get("/api/users" + userEmail);
   },
   // Add a new user to the database  
   newUser: function(userData) {
