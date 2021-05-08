@@ -1,11 +1,13 @@
 import { useState } from 'react';
 import { TextInput, Row, Col, CardPanel, Button, Icon } from 'react-materialize';
+import { Redirect } from 'react-router-dom';
+import API from '../utils/API';
 import SignupNav from './SignupNav';
 import M from 'materialize-css';
 
 function SignupPage() {
     const [userName, setUsername] = useState();
-    let [email, setEmail] = useState();
+    const [email, setEmail] = useState();
     const [password, setPassword] = useState();
     const [confirmPassword, setConfirmPassword] = useState();
 
@@ -23,12 +25,23 @@ function SignupPage() {
         } else if (password === "" || password === undefined || password.length < 6 || confirmPassword === "") {
             M.toast({html: 'Oops! Please enter a password of at least 6 characters.'})
         } else {
-            console.log("username is " + userName);
-            console.log("email is " + email);
-            console.log(`password is ${password}`);
-            window.location.href = '/login'
-        }  
+            API.newUser({
+                userName: userName,
+                email: email,
+                password: password
+            })
+            .then((res) => {
+                console.log(res);
+                <Redirect to={{
+                    pathname: "/login",
+                    state: { email: email }
+                }}
+                />
+            })
+            .catch(err => console.error(err));
+        };
     }
+
     return (
         <>
             <SignupNav />
