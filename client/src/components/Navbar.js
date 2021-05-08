@@ -1,11 +1,18 @@
 import { Navbar, NavItem, SideNav, SideNavItem, Dropdown, Button, Icon } from 'react-materialize';
+import { BrowserRouter as Router, Route, Switch, Link } from 'react-router-dom'
+import SignupPage from './SignupPage';
+// import BoardView from './BoardView';
+import LoginPage from './LoginPage';
 
 function Nav() {
     return (
-        <>
+        <Router>
+            <Route exact path="/"><SignupPage /></Route>
+            {/* <Route exact path="/home" component={BoardView} /> */}
+            <Route path="/login"><LoginPage /></Route>
             <Navbar
                 alignLinks="right"
-                brand={<a className="brand-logo" href="#">Vision Boarder</a>}
+                brand={<Link className="brand-logo" to='/login'>Vision Boarder</Link>}
                 id="mobile-nav"
                 menuIcon={<Icon>menu</Icon>}
                 options={{
@@ -48,23 +55,23 @@ function Nav() {
                                 }}
                                 trigger={<Button node="button">My Boards</Button>}
                             >
-                                <a href="#">
+                                <a href="/">
                                     one
                                 </a>
-                                <a href="#">
+                                <a href="/">
                                     two
                                 </a>
-                                <a href="#">
+                                <a href="/">
                                     three
                                 </a>
                             </Dropdown>
                         </SideNavItem>
-                        <SideNavItem href="">
+                        <SideNavItem href="/">
                             Log out
                         </SideNavItem>
                         <SideNavItem divider />
                         <SideNavItem>
-                            <a href="" id="backButton">
+                            <a href="/" id="backButton">
                                 Back    
                             </a> 
                         </SideNavItem>
@@ -97,11 +104,11 @@ function Nav() {
                         two
                     </a>
                 </Dropdown>
-                <NavItem href="">
-                    Log out
+                <NavItem>
+                    <Link to="/">Log out</Link>
                 </NavItem>
             </Navbar>
-        </>
+        </Router>
     )
 }
 

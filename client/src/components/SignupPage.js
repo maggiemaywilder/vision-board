@@ -1,7 +1,7 @@
 import { useState } from 'react';
-import { TextInput, Row, Col, CardPanel, Button, Toast, Icon } from 'react-materialize';
+import { TextInput, Row, Col, CardPanel, Button, Icon } from 'react-materialize';
 import SignupNav from './SignupNav';
-import M from 'materialize-css'
+import M from 'materialize-css';
 
 function SignupPage() {
     const [userName, setUsername] = useState();
@@ -20,7 +20,7 @@ function SignupPage() {
         } else if (document.querySelector('#userEmail').classList.contains('invalid')) {
             M.toast({html: 'Oops! Please enter a valid email address.'});
             setEmail('');
-        } else if (password === "" || password.length < 6 || confirmPassword === "") {
+        } else if (password === "" || password === undefined || password.length < 6 || confirmPassword === "") {
             M.toast({html: 'Oops! Please enter a password of at least 6 characters.'})
         } else {
             console.log("username is " + userName);

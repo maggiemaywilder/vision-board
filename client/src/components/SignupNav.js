@@ -1,10 +1,17 @@
 import { Navbar, NavItem, Icon } from 'react-materialize';
+import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
+import LoginPage from './LoginPage';
+import SignupPage from './SignupPage';
+
 
 function SignupNav() {
     return (
+        <Router>
+            <Route exact path='/'><SignupPage /></Route>
+            <Route path='/login'><LoginPage /></Route>
         <Navbar
             alignLinks="left"
-            brand={<a className="brand-logo right" href="#">Vision Boarder</a>}
+            brand={<Link className="brand-logo right" to='/'>Vision Boarder</Link>}
             id="mobile-nav"
             menuIcon={<Icon>menu</Icon>}
             options={{
@@ -19,10 +26,11 @@ function SignupNav() {
                 preventScrolling: true
             }}
         >
-            <NavItem href="/login">
-                Log in
+            <NavItem>
+                 <Link to="/login">Log in</Link>
             </NavItem>
         </Navbar>
+        </Router>
     )
 }
 

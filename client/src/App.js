@@ -3,11 +3,9 @@ import SignupPage from './components/SignupPage';
 
 function App() {
   return (
-    <div>
-      {/* <HashRouter> */}
+    <>
         <SignupPage />
-      {/* </HashRouter> */}
-    </div>
+    </>
   );
 }
 
