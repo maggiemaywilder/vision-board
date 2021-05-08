@@ -1,14 +1,18 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Redirect } from 'react-router-dom';
 import { Row, Col, TextInput, Button, CardPanel } from 'react-materialize';
 import SignupNav from './SignupNav';
 import M from 'materialize-css';
 import API from '../utils/API';
 
-function LoginPage() {
+function LoginPage(props) {
     const [email, setEmail] = useState();
     const [password, setPassword] = useState();
 
+    useEffect(() => {
+       setEmail(props.location.state.email);
+    }, [props.location.state.email]);
+        
     const handleSignin = (e) => {
         e.preventDefault();
         if (document.querySelector('#userEmail').classList.contains('invalid')) {
