@@ -1,13 +1,10 @@
 import { Navbar, NavItem, Icon } from 'react-materialize';
-import { Link } from 'react-router-dom'
-
-
 
 function SignupNav() {
     return (
         <Navbar
             alignLinks="left"
-            brand={<Link className="brand-logo right" to='/'>Vision Boarder</Link>}
+            brand={<a className="brand-logo right" href='/'>Vision Boarder</a>}
             id="mobile-nav"
             menuIcon={<Icon>menu</Icon>}
             options={{
@@ -23,7 +20,7 @@ function SignupNav() {
             }}
         >
             <NavItem>
-                 <Link to="/login">Log in</Link>
+                 <a href="/login">Log in</a>
             </NavItem>
         </Navbar>
     )
