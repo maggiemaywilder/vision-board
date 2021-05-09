@@ -27,7 +27,7 @@ app.get('/api/users', async (req, res) => {
 
 });
 
-app.get('api/user/:userEmal', async (req, res) => {
+app.get('api/user/:userEmail', async (req, res) => {
 
 });
 
@@ -43,11 +43,11 @@ app.put('/api/boards/:bid', (req, res) => {
 
 });
 
-app.post('/api/links', (req, res) => {
+app.post('/api/links', async (req, res) => {
 
 });
 
-app.post('/api/images', (req, res) => {
+app.post('/api/images', async (req, res) => {
 
 });
 
@@ -62,6 +62,7 @@ app.delete('/api/images/:imgId', (req, res) => {
 app.delete('/api/tags/:tagId', (req, res) => {
 
 });
+
 // Send every other request to the React app
 // Define any API routes before this runs
 app.get("*", (req, res) => {
