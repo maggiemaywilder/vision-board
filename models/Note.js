@@ -4,5 +4,9 @@ module.exports = (sequelize, DataTypes) => {
         text: DataTypes.STRING(1234),
         url: DataTypes.STRING,
     });
+
+    Note.associate = (models) => {
+        Note.belongsTo(models.Board);
+    };
     return Note;
 };

@@ -18,6 +18,6 @@ module.exports = (sequelize, DataTypes) => {
 
         Board.hasMany(models.Note);
     };
-    
+
     return Board;
 };
