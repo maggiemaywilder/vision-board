@@ -1,4 +1,5 @@
 const express = require("express");
+const passport = require('./config/passport');
 const path = require("path");
 
 const PORT = process.env.PORT || 3001;
@@ -27,12 +28,38 @@ app.get('/api/users', async (req, res) => {
 
 });
 
-app.get('api/user/:userEmail', async (req, res) => {
-
+app.get('api/users/:userEmail', passport.authenticate('local'), async (req, res) => {
+  try {
+    const user = await db.User.findAll({
+      where: {
+        email: req.params.userEmail
+      }
+    });
+    if (user) {
+      console.log(user);
+      res.json(user);
+    } else {
+      res.status(404);
+    }
+  } catch (err) {
+    console.error(err);
+    res.sendStatus(500);
+  }
 });
 
 app.post('/api/users', async (req, res) => {
-
+  try {
+    let newUser = await db.User.create({
+      firstName: req.body.firstName,
+      lastName: req.body.lastName,
+      userName: req.body.userName,
+      email: req.body.email,
+      password: req.body.password
+     });
+    res.json(newUser);
+  } catch (err) {
+    console.error(err)
+  }
 });
 
 app.post('/api/boards', async (req, res) => {
@@ -66,7 +93,7 @@ app.delete('/api/tags/:tagId', (req, res) => {
 // Send every other request to the React app
 // Define any API routes before this runs
 app.get("*", (req, res) => {
-  res.sendFile(path.join(__dirname, "./client/index.html"));
+  res.sendFile(path.join(__dirname, "./client/public/index.html"));
 });
 
 // Start the API server

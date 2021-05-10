@@ -1,11 +1,12 @@
 import { useState } from 'react';
 import { TextInput, Row, Col, CardPanel, Button, Icon } from 'react-materialize';
-// import API from '../utils/API';
-import SignupNav from './SignupNav';
+import API from '../utils/API';
+import SignupNav from '../components/SignupNav';
 import M from 'materialize-css';
 
 function SignupPage() {
-    const [userName, setUsername] = useState();
+    const [firstName, setFirstName] = useState();
+    const [lastName, setLastName] = useState();
     const [email, setEmail] = useState();
     const [password, setPassword] = useState();
     const [confirmPassword, setConfirmPassword] = useState();
@@ -16,25 +17,31 @@ function SignupPage() {
             M.toast(
                 {html: 'Oops! Password fields do not match.'}
             )    
-        } else if (userName === "") {
-            M.toast({html: 'Oops! Please enter your name.'})
+        } else if (firstName === "" || lastName === "") {
+            M.toast({html: 'Oops! Please enter your full name.'})
         } else if (document.querySelector('#userEmail').classList.contains('invalid')) {
             M.toast({html: 'Oops! Please enter a valid email address.'});
             setEmail('');
         } else if (password === "" || password === undefined || password.length < 6 || confirmPassword === "") {
             M.toast({html: 'Oops! Please enter a password of at least 6 characters.'})
         } else {
-            // API.newUser({
-            //     userName: userName,
-            //     email: email,
-            //     password: password
-            // })
-            // .then((res) => {
-            //     console.log(res);
-            // })
-            // .catch(err => console.error(err));
-            window.location.href = '/login';
-            
+            const newUserData = {
+                firstName: firstName,
+                lastName: lastName,
+                userName: firstName + lastName,
+                email: email,
+                password: password
+            }
+            API.newUser(newUserData)
+            .then((res) => {
+                console.log(res);
+                window.location.href = '/login';
+            })
+            .catch((err) => {
+                if (err) {
+                    M.toast({html: 'Oops! Looks like you already have an account with that email.'});
+                }
+            });   
         };
     }
 
@@ -61,10 +68,20 @@ function SignupPage() {
                     >
                         <Row>
                             <TextInput
-                                id="userName"
-                                name="userName"
-                                placeholder="Jackie Smith"
-                                onChange={e => setUsername(e.target.value)}
+                                id="firstName"
+                                name="firstName"
+                                label="First name"
+                                placeholder="Jackie"
+                                onChange={e => setFirstName(e.target.value)}
+                            />
+                        </Row>
+                        <Row>
+                            <TextInput
+                                id="lastName"
+                                name="lastName"
+                                label="Last name"
+                                placeholder="Smith"
+                                onChange={e => setLastName(e.target.value)}
                             />
                         </Row>
                         <Row>
