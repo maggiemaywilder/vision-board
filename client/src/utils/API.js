@@ -16,7 +16,7 @@ export default {
   },
   // Gets user with given uid
   getUser: function(userEmail) {
-    return axios.get("/api/users" + userEmail);
+    return axios.get("/api/users/" + userEmail);
   },
   // Add a new user to the database  
   newUser: function(userData) {
@@ -48,10 +48,10 @@ export default {
   },
   // Delete an image
   deleteImg: function(imgId) {
-    return axios.delete(`/api/links/${imgId}`)
+    return axios.delete(`/api/images/${imgId}`)
   },
   // Delete a tag
   deleteTag: function(tagId) {
-    return axios.delete(`/api/links/${tagId}`)
+    return axios.delete(`/api/tags/${tagId}`)
   }
 };
