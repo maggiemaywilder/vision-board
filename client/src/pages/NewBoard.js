@@ -4,8 +4,7 @@ import { useUserContext } from '../utils/GlobalState';
 function NewBoard() {
     const { state, dispatch } = useUserContext();
     const currentUser = state[0].user;
-    const currentBoardId = state[1].currentBoard
-    console.log(currentUser, currentBoardId);
+    const currentBoard = state[1].currentBoard
 
     return(
         <>

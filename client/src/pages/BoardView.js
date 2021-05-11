@@ -28,7 +28,7 @@ function BoardView() {
             console.log(res);
             dispatch({
                 type: "setNewBoard",
-                payload: parseInt(res.id),   
+                payload: res.data,   
             });
             history.push(`/boards/${currentUser.id}/new`)
         })
