@@ -13,8 +13,8 @@ function App() {
         <Switch>
           <Route exact path='/'><SignupPage /></Route>
           <Route path='/login'><LoginPage /></Route>
-          <Route path='/boards'><NewBoard /></Route>
           <Route path='/users/:userName'><BoardView /></Route>
+          <Route path='/boards/:uid/new'><NewBoard /></Route>
         </Switch>
       </Router>
       </UserProvider>

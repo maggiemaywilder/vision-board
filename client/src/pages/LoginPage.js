@@ -10,7 +10,7 @@ function LoginPage() {
     const [email, setEmail] = useState();
     const [password, setPassword] = useState("");
     const history = useHistory();
-    const [state, dispatch] = useUserContext();
+    const { state, dispatch } = useUserContext();
 
     const handleSignin = (e) => {
         e.preventDefault();

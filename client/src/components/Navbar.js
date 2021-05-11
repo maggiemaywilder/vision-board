@@ -1,6 +1,6 @@
 import { Navbar, NavItem, SideNav, SideNavItem, Dropdown, Button, Icon } from 'react-materialize';
 
-function Nav() {
+function Nav(props) {
     return (
             <Navbar
                 alignLinks="right"

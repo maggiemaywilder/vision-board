@@ -3,8 +3,8 @@ import axios from "axios";
 
 export default {
   // Gets all boards
-  getBoards: function() {
-    return axios.get("/api/boards");
+  getUserBoards: function(uid) {
+    return axios.get("/api/boards/" + uid);
   },
   // Gets the board with the given id
   getBoard: function(id) {
