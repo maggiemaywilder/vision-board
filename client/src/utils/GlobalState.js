@@ -20,7 +20,7 @@ function userReducer(state, action) {
   }
 }
 
-function UserProvider({ value = [], ...props }) {
+function UserProvider({ value = {}, ...props }) {
   const [state, dispatch] = useReducer(userReducer, []);
 
   return <Provider value={[state, dispatch]} {...props} />;

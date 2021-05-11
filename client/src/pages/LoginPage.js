@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useHistory } from "react-router-dom";
 import { Row, Col, TextInput, Button, CardPanel } from 'react-materialize';
 import { useUserContext } from '../utils/GlobalState';

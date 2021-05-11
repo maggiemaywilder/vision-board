@@ -1,15 +1,16 @@
 import Nav from '../components/Navbar';
 import { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
 import { useUserContext } from '../utils/GlobalState';
+import API from '../utils/API';
 
 function BoardView() {
     const [state, dispatch] = useUserContext();
+    const currentUser = state[0].user;
 
     return (
         <>
         <Nav />
-        <h1>{JSON.stringify(state[0])}</h1>
+        <div>Hello, {currentUser.userName}!</div>
         </>
     )
 }
