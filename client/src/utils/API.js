@@ -15,8 +15,8 @@ export default {
     return axios.get("/api/users/")
   },
   // Gets user with given uid
-  getUser: function(userEmail) {
-    return axios.get("/api/users/" + userEmail);
+  loginUser: function(userData) {
+    return axios.post(`/api/login`, userData);
   },
   // Add a new user to the database  
   newUser: function(userData) {
