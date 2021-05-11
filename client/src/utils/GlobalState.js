@@ -8,9 +8,13 @@ const { Provider } = UserContext;
 function userReducer(state, action) {
   switch (action.type) {
   case "setCurrentUser":
-    return ({user: action.payload});
+    return [ ...state, 
+        {user: action.payload}
+    ];
   case "setNewBoard":
-      return({user: action.payload});
+      return [ ...state, 
+        {currentBoard: action.payload}
+    ];
   default:
     return state;
   }

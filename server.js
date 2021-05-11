@@ -67,7 +67,17 @@ app.post('/api/users', async (req, res) => {
 });
 
 app.post('/api/boards', async (req, res) => {
-
+  try {
+    const newBoard = await db.Board.create({
+      name: 'New Board',
+      topic: 'None',
+      UserId: parseInt(req.body.id)
+    });
+    res.json(newBoard);
+  } catch (err) {
+    console.error(err);
+    res.sendStatus(500);
+  }
 });
 
 app.put('/api/boards/:bid', (req, res) => {

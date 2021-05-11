@@ -23,8 +23,8 @@ export default {
     return axios.post('/api/users', userData);
   },
   // Add a new board to the database
-  newBoard: function(uid) {
-      return axios.post('/api/boards', uid);
+  newBoard: function(userData) {
+      return axios.post('/api/boards', userData);
   },
   // Update a board with given id with data  
   updateBoard: function(bid, data) {

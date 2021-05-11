@@ -3,9 +3,10 @@ import { useUserContext } from '../utils/GlobalState';
 
 function NewBoard() {
     const { state, dispatch } = useUserContext();
-    const currentUser = state.user;
-    console.log(currentUser);
-    
+    const currentUser = state[0].user;
+    const currentBoardId = state[1].currentBoard
+    console.log(currentUser, currentBoardId);
+
     return(
         <>
             <Nav />

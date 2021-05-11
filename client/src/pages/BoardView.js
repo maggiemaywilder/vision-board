@@ -7,27 +7,32 @@ import API from '../utils/API';
 
 function BoardView() {
     const { state, dispatch } = useUserContext();
-    const currentUser = state.user;
+    const currentUser = state[0].user;
     const history = useHistory();
 
-    function getBoards(uid) {
-        API.getUserBoards(uid)
-            .then((res) => {
-                console.log(res);
-            })
-            .catch(err => console.error(err));
-    }
+    // function getBoards(uid) {
+    //     API.getUserBoards(uid)
+    //         .then((res) => {
+    //             console.log(res);
+    //         })
+    //         .catch(err => console.error(err));
+    // }
 
-    useEffect(() => {
-        getBoards(currentUser.id);
-    }, [currentUser.id]);
+    // useEffect(() => {
+    //     getBoards(currentUser.id);
+    // }, [currentUser.id]);
 
     const handleNewBoard = () => {
-        dispatch({
-            type: "setNewBoard",
-            payload: currentUser
-        });
-        history.push(`/boards/${currentUser.id}/new`)
+        API.newBoard(currentUser)
+        .then((res) => {
+            console.log(res);
+            dispatch({
+                type: "setNewBoard",
+                payload: parseInt(res.id),   
+            });
+            history.push(`/boards/${currentUser.id}/new`)
+        })
+        .catch(err => console.error(err))   
     }
 
     return (
