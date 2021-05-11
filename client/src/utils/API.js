@@ -36,7 +36,7 @@ export default {
   },
   // Add a new image
   newImage: function(imgData) {
-      return axios.post('/api/images', imgData);
+      return axios.post('/api/addImage', imgData);
   },
   // Add a new tag
   newTag: function(mediaId, tagData) {
