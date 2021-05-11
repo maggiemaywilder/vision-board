@@ -1,5 +1,7 @@
 import { useEffect, useState } from 'react';
+import { useHistory } from "react-router-dom";
 import { Row, Col, TextInput, Button, CardPanel } from 'react-materialize';
+import { useUserContext } from '../utils/GlobalState';
 import SignupNav from '../components/SignupNav';
 import M from 'materialize-css';
 import API from '../utils/API';
@@ -7,7 +9,8 @@ import API from '../utils/API';
 function LoginPage() {
     const [email, setEmail] = useState();
     const [password, setPassword] = useState("");
-    const [userInfo, setUserInfo] = useState();
+    const history = useHistory();
+    const [state, dispatch] = useUserContext();
 
     const handleSignin = (e) => {
         e.preventDefault();
@@ -15,13 +18,20 @@ function LoginPage() {
             M.toast({html: "Oops! Looks like that email is invalid. Try again."});
             setEmail("");
         } else {
-            API.loginUser(email)
+            const userData = {
+                email: email,
+                password: password
+            }
+            API.loginUser(userData)
             .then((res) => {
                 if (res.statusCode === 404) {
                     M.toast({html: "Oops! Looks like your account wasn't found. Try again."})
                 } else {
-                    console.log(res);
-                    // window.location.href = '/'
+                    dispatch({ 
+                        type: 'setCurrentUser',
+                        payload: res.data
+                    });
+                    history.push(`/users/${res.data.userName}`) 
                 }
                 
             })

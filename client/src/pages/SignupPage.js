@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useHistory } from "react-router-dom";
 import { TextInput, Row, Col, CardPanel, Button, Icon } from 'react-materialize';
 import API from '../utils/API';
 import SignupNav from '../components/SignupNav';
@@ -10,6 +11,7 @@ function SignupPage() {
     const [email, setEmail] = useState();
     const [password, setPassword] = useState();
     const [confirmPassword, setConfirmPassword] = useState();
+    const history = useHistory();
 
     const handleSignUp = (e) => {
         e.preventDefault();
@@ -35,7 +37,7 @@ function SignupPage() {
             API.newUser(newUserData)
             .then((res) => {
                 console.log(res);
-                window.location.href = '/login';
+                history.push('./login');
             })
             .catch((err) => {
                 if (err) {

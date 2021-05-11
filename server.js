@@ -1,5 +1,7 @@
 const express = require("express");
+const session = require('express-session');
 const passport = require('./config/passport');
+const isAuthenticated = require('./config/middleware/auth');
 const path = require("path");
 
 const PORT = process.env.PORT || 3001;
@@ -10,6 +12,15 @@ const db = require('./models');
 // Define middleware here
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
+
+app.use(session({
+  secret: 'vision-boarder-dev',
+  resave: true,
+  saveUninitialized: true
+}));
+
+app.use(passport.initialize());
+app.use(passport.session());
 // Serve up static assets (usually on heroku)
 if (process.env.NODE_ENV === "production") {
   app.use(express.static("client/build"));
@@ -28,19 +39,12 @@ app.get('/api/users', async (req, res) => {
 
 });
 
-app.get('api/users/:userEmail', passport.authenticate('local'), async (req, res) => {
+app.post('/api/login', passport.authenticate('local'), (req, res) => {
   try {
-    const user = await db.User.findAll({
-      where: {
-        email: req.params.userEmail
-      }
-    });
-    if (user) {
-      console.log(user);
-      res.json(user);
-    } else {
-      res.status(404);
+    if (req.user) {
+      res.json(req.user);
     }
+    
   } catch (err) {
     console.error(err);
     res.sendStatus(500);
@@ -92,7 +96,7 @@ app.delete('/api/tags/:tagId', (req, res) => {
 
 // Send every other request to the React app
 // Define any API routes before this runs
-app.get("*", (req, res) => {
+app.get("*", isAuthenticated, (req, res) => {
   res.sendFile(path.join(__dirname, "./client/public/index.html"));
 });
 
