@@ -15,6 +15,7 @@ function App() {
           <Route path='/login'><LoginPage /></Route>
           <Route path='/users/:userName'><BoardView /></Route>
           <Route path='/boards/:uid/new'><NewBoard /></Route>
+          <Route path='/boards/:bid'><BoardView /></Route>
         </Switch>
       </Router>
       </UserProvider>

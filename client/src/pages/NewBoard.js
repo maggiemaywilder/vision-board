@@ -9,7 +9,7 @@ function NewBoard() {
     return(
         <>
             <Nav />
-            <h1>This will be the board creation station.</h1>
+            <h1>This will be the board creation station for board ID: {currentBoard.id}</h1>
         </>    
     )
 }

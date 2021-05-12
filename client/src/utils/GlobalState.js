@@ -11,7 +11,7 @@ function userReducer(state, action) {
     return [ ...state, 
         {user: action.payload}
     ];
-  case "setNewBoard":
+  case "setCurrentBoard":
       return [ ...state, 
         {currentBoard: action.payload}
     ];
