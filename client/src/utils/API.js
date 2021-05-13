@@ -8,7 +8,7 @@ export default {
   },
   // Gets the board with the given id
   getBoard: function(bid) {
-    return axios.get(`/api/board/${bid}`);
+    return axios.get(`/api/boards/${bid}`);
   },
   // Gets all users
   getUsers: function() {

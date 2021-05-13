@@ -1,5 +1,5 @@
 import { Navbar, NavItem, SideNav, SideNavItem, Dropdown, Button, Icon } from 'react-materialize';
-
+import { Link } from 'react-router-dom';
 function Nav(props) {
 
     return (
@@ -31,7 +31,7 @@ function Nav(props) {
                         return (
                             <>
                             <SideNavItem key={board.id}>
-                            <a href={`/boards/${board.id}`} onClick={props.handleBoardSelect}>
+                            <a href={`/boards/${board.id}`} id={board.id} onClick={props.handleBoardSelect}>
                                 {board.name}
                             </a>
                             </SideNavItem>
@@ -40,9 +40,9 @@ function Nav(props) {
                         )
                     }) : <p>Loading...</p>}
 
-                    <SideNavItem href="/">
-                        Log out
-                        </SideNavItem>
+                    <SideNavItem>
+                        <Link to='/' onClick={props.handleLogout}>Log out</Link>
+                    </SideNavItem>
                 </SideNav>
             }
         >
@@ -63,7 +63,7 @@ function Nav(props) {
                     onOpenStart: null,
                     outDuration: 250
                 }}
-                trigger={<a href="#">My Boards{' '}<Icon right>arrow_drop_down</Icon></a>}
+                trigger={<Link>My Boards<Icon right>arrow_drop_down</Icon></Link>}
             >
                 {props.currentUserBoards ? props.currentUserBoards.map((board) => {
                     return (
@@ -74,7 +74,7 @@ function Nav(props) {
                 }) : <p>Loading...</p>}
             </Dropdown>
             <NavItem>
-                <a href="/">Log out</a>
+                <Link to='/' onClick={props.handleLogout}>Log out</Link>
             </NavItem>
         </Navbar>
     )

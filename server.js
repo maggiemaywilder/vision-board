@@ -37,7 +37,7 @@ app.get('/api/:uid/boards', async (req, res) => {
       if (userBoards) {
         res.json(userBoards);
       } else {
-        res.send({data: {}})
+        res.sendStatus(404)
       }  
   } catch (err) {
     console.error(err);
