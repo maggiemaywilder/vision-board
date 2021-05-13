@@ -17,7 +17,7 @@ router.delete("/api/images/", (req, res) => {
     res.send(response)
 })
 
-app.get('/api/boards', async (req, res) => {
+router.get('/api/boards', async (req, res) => {
     try{
       let bordoard = await db.Note.findAll({
         type: req.body.text,
@@ -31,7 +31,7 @@ app.get('/api/boards', async (req, res) => {
   
   });
   
-  app.get('/api/board', async (req, res) => {
+  router.get('/api/board', async (req, res) => {
     try {let board = await User.findOne({
       where: {
         name: req.body.name
@@ -43,7 +43,7 @@ app.get('/api/boards', async (req, res) => {
   }
   });
   
-  app.get('/api/users', async (req, res) => {
+  router.get('/api/users', async (req, res) => {
     try {
       let user = await db.User.findAll({
         firstName: req.body.firstName,
@@ -59,7 +59,7 @@ app.get('/api/boards', async (req, res) => {
   
   });
   
-  app.post('/api/login', passport.authenticate('local'), (req, res) => {
+  router.post('/api/login', passport.authenticate('local'), (req, res) => {
     try {
       if (req.user) {
         res.json(req.user);
@@ -71,7 +71,7 @@ app.get('/api/boards', async (req, res) => {
     }
   });
   
-  app.post('/api/users', async (req, res) => {
+  router.post('/api/users', async (req, res) => {
     try {
       let newUser = await db.User.create({
         firstName: req.body.firstName,
@@ -86,7 +86,7 @@ app.get('/api/boards', async (req, res) => {
     }
   });
   
-  app.post('/api/boards', async (req, res) => {
+  router.post('/api/boards', async (req, res) => {
     try{
       let newBoard = await db.Board.create({
         name: req.body.name,
@@ -99,7 +99,7 @@ app.get('/api/boards', async (req, res) => {
   });
   
   //update where if we want to identify by id
-  app.put('/api/boards/:bid', (req, res) => {
+  router.put('/api/boards/:bid', (req, res) => {
     try {let adjustedBoard = await db.Board.update({ name: req.body.name, topic: req.body.topic }, {
       where: {
         name: req.body.name
@@ -117,7 +117,7 @@ app.get('/api/boards', async (req, res) => {
     // }
   });
   
-  app.post('/api/links', async (req, res) => {
+  router.post('/api/links', async (req, res) => {
     try{
       let newNote = await db.Note.create({
         type: req.body.text,
@@ -130,11 +130,11 @@ app.get('/api/boards', async (req, res) => {
   
   });
   
-  app.post('/api/images', async (req, res) => {
+  router.post('/api/images', async (req, res) => {
   
   });
   
-  app.delete('/api/links/:linkId', (req, res) => {
+  router.delete('/api/links/:linkId', (req, res) => {
     try{
       let deleteNote = await db.Note.delete({
         type: req.body.text,
@@ -147,16 +147,16 @@ app.get('/api/boards', async (req, res) => {
   
   });
   
-  app.delete('/api/images/:imgId', (req, res) => {
+  router.delete('/api/images/:imgId', (req, res) => {
   
   });
   
-  app.delete('/api/tags/:tagId', (req, res) => {
+  router.delete('/api/tags/:tagId', (req, res) => {
     
   });
   
   // Send every other request to the React app
   // Define any API routes before this runs
-  app.get("*", isAuthenticated, (req, res) => {
+  router.get("*", isAuthenticated, (req, res) => {
     res.sendFile(path.join(__dirname, "./client/public/index.html"));
   });
