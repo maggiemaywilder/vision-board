@@ -39,9 +39,18 @@ function BoardView() {
             })
     }
 
+    const handleLogout = (e) => {
+        e.preventDefualt();
+        dispatch({
+            type: "logoutUser",
+            payload: ""
+        })
+        history.push('/')
+    }
+
     return (
         <>
-        <Nav currentUserBoards={currentUserBoards} handleBoardSelect={handleBoardSelect} />
+        <Nav currentUserBoards={currentUserBoards} handleBoardSelect={handleBoardSelect} handleLogout={handleLogout} />
             {board ? <h1>This will be the board view for {board.name}</h1>
             : <p>Finding that board...</p>}
         </>

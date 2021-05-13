@@ -15,6 +15,10 @@ function userReducer(state, action) {
       return [ ...state, 
         {currentBoard: action.payload}
     ];
+    case "logoutUser":
+      return [...state,
+        {user: action.payload}
+      ]
   default:
     return state;
   }
