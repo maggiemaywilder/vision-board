@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import Nav from '../components/Navbar';
 import { Row, Col, Card, Button } from 'react-materialize';
 import { useHistory, useParams } from "react-router-dom";
@@ -9,7 +10,6 @@ function BoardView() {
     const { state, dispatch } = useUserContext();
     const { bid } = useParams();
     const [board, setBoard] = useState();
-    const [currentUserId, setCurrentUserId] = useState();
     const [currentUserBoards, setCurrentUserBoards] = useState();
     const history = useHistory();
 
@@ -17,17 +17,14 @@ function BoardView() {
         API.getBoard(bid)
             .then((res) => {
                 setBoard(res.data);
-                setCurrentUserId(res.data.UserId);
-            })
-            .then(() => {
-                API.getUserBoards(currentUserId)
-                    .then((res) => {
-                        setCurrentUserBoards(res.data);
-                    })
-                    .catch(err => console.error(err))
+                API.getUserBoards(res.data.UserId)
+                .then((response) => {
+                    setCurrentUserBoards(response.data);
+                })
+                .catch(err => console.error(err))
             })
             .catch(err => console.error(err))
-    }, [currentUserId, bid]);
+    }, [bid]);
 
     const handleBoardSelect = (e) => {
         const bid = e.target.id
