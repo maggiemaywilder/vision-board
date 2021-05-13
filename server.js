@@ -27,12 +27,34 @@ if (process.env.NODE_ENV === "production") {
 }
 
 // Define API routes here
-app.get('/api/boards', async (req, res) => {
-
+app.get('/api/:uid/boards', async (req, res) => {
+  try {
+      const userBoards = await db.Board.findAll({
+        where: {
+          UserId: parseInt(req.params.uid)
+        }
+      });
+      if (userBoards) {
+        res.json(userBoards);
+      } else {
+        res.send({data: {}})
+      }  
+  } catch (err) {
+    console.error(err);
+  }
 });
 
-app.get('/api/board', async (req, res) => {
-
+app.get('/api/boards/:bid', async (req, res) => {
+  try {
+    const selectedBoard = await db.Board.findOne({
+      where: {
+        id: parseInt(req.params.bid)
+      }
+    })
+    res.json(selectedBoard);
+  } catch (err) {
+    console.error(err);
+  }
 });
 
 app.get('/api/users', async (req, res) => {
@@ -66,12 +88,22 @@ app.post('/api/users', async (req, res) => {
   }
 });
 
-app.post('/api/boards', async (req, res) => {
-
+app.post('/api/boards/new', async (req, res) => {
+  try {
+    const newBoard = await db.Board.create({
+      name: 'New Board',
+      topic: 'None',
+      UserId: parseInt(req.body.id)
+    });
+    res.json(newBoard);
+  } catch (err) {
+    console.error(err);
+    res.sendStatus(500);
+  }
 });
 
 app.put('/api/boards/:bid', (req, res) => {
-
+  
 });
 
 app.post('/api/links', async (req, res) => {

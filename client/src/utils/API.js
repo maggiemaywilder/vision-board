@@ -3,12 +3,12 @@ import axios from "axios";
 
 export default {
   // Gets all boards
-  getBoards: function() {
-    return axios.get("/api/boards");
+  getUserBoards: function(uid) {
+    return axios.get(`/api/${uid}/boards`);
   },
   // Gets the board with the given id
-  getBoard: function(id) {
-    return axios.get("/api/board/" + id);
+  getBoard: function(bid) {
+    return axios.get(`/api/board/${bid}`);
   },
   // Gets all users
   getUsers: function() {
@@ -23,8 +23,8 @@ export default {
     return axios.post('/api/users', userData);
   },
   // Add a new board to the database
-  newBoard: function(uid) {
-      return axios.post('/api/boards', uid);
+  newBoard: function(userData) {
+      return axios.post('/api/boards/new', userData);
   },
   // Update a board with given id with data  
   updateBoard: function(bid, data) {
