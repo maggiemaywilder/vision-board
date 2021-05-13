@@ -25,47 +25,24 @@ function Nav(props) {
                     options={{
                         draggable: true
                     }}
-                    trigger={<Button node="button">Options</Button>}
+                    trigger={<Button node="button">My Boards</Button>}
                 >
+                    {props.currentUserBoards ? props.currentUserBoards.map((board) => {
+                        return (
+                            <>
+                            <SideNavItem key={board.id}>
+                            <a href={`/boards/${board.id}`} onClick={props.handleBoardSelect}>
+                                {board.name}
+                            </a>
+                            </SideNavItem>
+                            <SideNavItem divider />
+                            </>
+                        )
+                    }) : <p>Loading...</p>}
 
-                    <SideNavItem>
-                        <Dropdown
-                            id="Dropdown_6"
-                            options={{
-                                alignment: 'left',
-                                autoTrigger: true,
-                                closeOnClick: true,
-                                constrainWidth: true,
-                                container: null,
-                                coverTrigger: true,
-                                hover: false,
-                                inDuration: 150,
-                                onCloseEnd: null,
-                                onCloseStart: null,
-                                onOpenEnd: null,
-                                onOpenStart: null,
-                                outDuration: 250
-                            }}
-                            trigger={<Button node="button">My Boards</Button>}
-                        >
-                            {props.currentUserBoards ? props.currentUserBoards.map((board) => {
-                                return (
-                                    <a key={board.id} href={`/boards/${board.id}`} onClick={props.handleBoardSelect}>
-                                        {board.name}
-                                    </a>
-                                )
-                            }) : <p>Loading...</p>}
-                        </Dropdown>
-                    </SideNavItem>
                     <SideNavItem href="/">
                         Log out
                         </SideNavItem>
-                    <SideNavItem divider />
-                    <SideNavItem>
-                        <a href="/boards" id="backButton">
-                            Back
-                            </a>
-                    </SideNavItem>
                 </SideNav>
             }
         >

@@ -37,7 +37,8 @@ function SignupPage() {
             API.newUser(newUserData)
             .then((res) => {
                 console.log(res);
-                history.push('./login');
+                M.toast({html: "Signed up successfully!"});
+                history.push('/login');
             })
             .catch((err) => {
                 if (err) {

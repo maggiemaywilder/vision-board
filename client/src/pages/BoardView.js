@@ -7,10 +7,21 @@ import API from '../utils/API';
 
 function BoardView() {
     const { state, dispatch } = useUserContext();
-    const currentUser = state[0].user;
-    // const currentBoard = state[1].currentBoard
+    const currentUser = state[0].user
+    const currentBoard = state[1].currentBoard;
+    const [boardView, setBoardView] = useState();
     const [currentUserBoards, setCurrentUserBoards] = useState();
     const history = useHistory();
+    
+    console.log(currentBoard);
+
+    useEffect(() => {
+        API.getBoard(currentBoard.id)
+        .then((res) => {
+            setBoardView(res.data);
+        })
+        .catch(err => console.error(err))
+    }, [currentBoard.id]);
 
     useEffect(() => {
         API.getUserBoards(currentUser.id)
@@ -63,6 +74,7 @@ function BoardView() {
             >
                 New Board
             </Button>
+            <h1>This will be the board view for {currentBoard.name}</h1>
         </>
     )
 }
