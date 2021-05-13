@@ -1,108 +1,82 @@
 import { Navbar, NavItem, SideNav, SideNavItem, Dropdown, Button, Icon } from 'react-materialize';
+import { Link } from 'react-router-dom';
+function Nav(props) {
 
-function Nav() {
     return (
-            <Navbar
-                alignLinks="right"
-                brand={<a className="brand-logo" href='/login'>Vision Boarder</a>}
-                id="mobile-nav"
-                menuIcon={<Icon>menu</Icon>}
+        <Navbar
+            alignLinks="right"
+            brand={<a className="brand-logo" href='/login'>Vision Boarder</a>}
+            id="mobile-nav"
+            menuIcon={<Icon>menu</Icon>}
+            options={{
+                draggable: true,
+                edge: 'left',
+                inDuration: 250,
+                onCloseEnd: null,
+                onCloseStart: null,
+                onOpenEnd: null,
+                onOpenStart: null,
+                outDuration: 200,
+                preventScrolling: true
+            }}
+            sidenav={
+                <SideNav
+                    id="SideNav-10"
+                    options={{
+                        draggable: true
+                    }}
+                    trigger={<Button node="button">My Boards</Button>}
+                >
+                    {props.currentUserBoards ? props.currentUserBoards.map((board) => {
+                        return (
+                            <>
+                            <SideNavItem key={board.id}>
+                            <a href={`/boards/${board.id}`} id={board.id} onClick={props.handleBoardSelect}>
+                                {board.name}
+                            </a>
+                            </SideNavItem>
+                            <SideNavItem divider />
+                            </>
+                        )
+                    }) : <p>Loading...</p>}
+
+                    <SideNavItem>
+                        <Link to='/' onClick={props.handleLogout}>Log out</Link>
+                    </SideNavItem>
+                </SideNav>
+            }
+        >
+            <Dropdown
+                id="Dropdown_7"
                 options={{
-                    draggable: true,
-                    edge: 'left',
-                    inDuration: 250,
+                    alignment: 'left',
+                    autoTrigger: true,
+                    closeOnClick: true,
+                    constrainWidth: true,
+                    container: null,
+                    coverTrigger: true,
+                    hover: false,
+                    inDuration: 150,
                     onCloseEnd: null,
                     onCloseStart: null,
                     onOpenEnd: null,
                     onOpenStart: null,
-                    outDuration: 200,
-                    preventScrolling: true
+                    outDuration: 250
                 }}
-                sidenav={
-                    <SideNav
-                        id="SideNav-10"
-                        options={{
-                            draggable: true
-                        }}
-                        trigger={<Button node="button">Options</Button>}
-                    >
-
-                        <SideNavItem>
-                            <Dropdown
-                                id="Dropdown_6"
-                                options={{
-                                    alignment: 'left',
-                                    autoTrigger: true,
-                                    closeOnClick: true,
-                                    constrainWidth: true,
-                                    container: null,
-                                    coverTrigger: true,
-                                    hover: false,
-                                    inDuration: 150,
-                                    onCloseEnd: null,
-                                    onCloseStart: null,
-                                    onOpenEnd: null,
-                                    onOpenStart: null,
-                                    outDuration: 250
-                                }}
-                                trigger={<Button node="button">My Boards</Button>}
-                            >
-                                <a href="#">
-                                    one
-                                </a>
-                                <a href="#">
-                                    two
-                                </a>
-                                <a href="#">
-                                    three
-                                </a>
-                            </Dropdown>
-                        </SideNavItem>
-                        <SideNavItem href="/">
-                            Log out
-                        </SideNavItem>
-                        <SideNavItem divider />
-                        <SideNavItem>
-                            <a href="/boards" id="backButton">
-                                Back
-                            </a>
-                        </SideNavItem>
-                    </SideNav>
-                }
+                trigger={<Link>My Boards<Icon right>arrow_drop_down</Icon></Link>}
             >
-                <Dropdown
-                    id="Dropdown_7"
-                    options={{
-                        alignment: 'left',
-                        autoTrigger: true,
-                        closeOnClick: true,
-                        constrainWidth: true,
-                        container: null,
-                        coverTrigger: true,
-                        hover: false,
-                        inDuration: 150,
-                        onCloseEnd: null,
-                        onCloseStart: null,
-                        onOpenEnd: null,
-                        onOpenStart: null,
-                        outDuration: 250
-                    }}
-                    trigger={<a href="#">My Boards{' '}<Icon right>arrow_drop_down</Icon></a>}
-                >
-                    <a href="#">
-                        one
-                    </a>
-                    <a href="#">
-                        two
-                    </a>
-                    <a href="#">
-                        three
-                    </a>
-                </Dropdown>
-                <NavItem>
-                    <a href="/">Log out</a>
-                </NavItem>
-            </Navbar>
+                {props.currentUserBoards ? props.currentUserBoards.map((board) => {
+                    return (
+                        <a key={board.id} href={`/boards/${board.id}`} onClick={props.handleBoardSelect}>
+                            {board.name}
+                        </a>
+                    )
+                }) : <p>Loading...</p>}
+            </Dropdown>
+            <NavItem>
+                <Link to='/' onClick={props.handleLogout}>Log out</Link>
+            </NavItem>
+        </Navbar>
     )
 }
 
