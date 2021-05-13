@@ -31,7 +31,7 @@ function Nav(props) {
                         return (
                             <>
                             <SideNavItem key={board.id}>
-                            <a href={`/boards/${board.id}`} onClick={props.handleBoardSelect}>
+                            <a href={`/boards/${board.id}`} id={board.id} onClick={props.handleBoardSelect}>
                                 {board.name}
                             </a>
                             </SideNavItem>
