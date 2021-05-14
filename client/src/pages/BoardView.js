@@ -16,6 +16,7 @@ function BoardView() {
     useEffect(() => {
         API.getBoard(bid)
             .then((res) => {
+                console.log(res);
                 setBoard(res.data);
                 API.getUserBoards(res.data.UserId)
                 .then((response) => {
