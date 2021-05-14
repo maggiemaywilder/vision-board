@@ -1,8 +1,6 @@
 const express = require("express");
 const session = require('express-session');
 const passport = require('./config/passport');
-const isAuthenticated = require('./config/middleware/auth');
-const path = require("path");
 const routes = require("./routes/api-routes.js")
 
 const PORT = process.env.PORT || 3001;
@@ -10,12 +8,11 @@ const app = express();
 
 
 const db = require('./models');
-const { combineTableNames } = require("sequelize/types/lib/utils");
 
 // Define middleware here
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
-app.use(routes);
+
 
 app.use(session({
   secret: 'vision-boarder-dev',
@@ -30,6 +27,7 @@ if (process.env.NODE_ENV === "production") {
   app.use(express.static("client/build"));
 }
 
+app.use(routes);
 
 // Start the API server
 db.sequelize.sync().then(() => {
