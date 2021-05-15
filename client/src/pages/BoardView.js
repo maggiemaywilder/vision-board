@@ -11,33 +11,59 @@ function BoardView() {
     const { bid } = useParams();
     const [board, setBoard] = useState();
     const [currentUserBoards, setCurrentUserBoards] = useState();
+    const [currentUserId, setCurrentUserId] = useState();
+    const [currentUser, setCurrentUser] = useState();
     const history = useHistory();
 
     useEffect(() => {
-        API.getBoard(bid)
+        API.getBoard(bid)   
             .then((res) => {
-                console.log(res);
                 setBoard(res.data);
+                setCurrentUserId(res.data.UserId);
                 API.getUserBoards(res.data.UserId)
                 .then((response) => {
                     setCurrentUserBoards(response.data);
                 })
-                .catch(err => console.error(err))
+                .catch(err => console.error(err));
             })
-            .catch(err => console.error(err))
+            .catch(err => console.error(err));
     }, [bid]);
 
     const handleBoardSelect = (e) => {
         const bid = e.target.id
         API.getBoard(bid)
             .then((res) => {
-                console.log('Current board: ', res.data);
                 dispatch({
                     type: "setCurrentBoard",
                     payload: res.data
                 });
+            })    
+            .then(() => {
                 history.push(`/boards/${bid}`)
             })
+            .catch(err => console.error(err))
+    }
+
+    const handleNewBoard = () => {
+        API.getUserById(currentUserId)
+        .then((res) => {
+            setCurrentUser(res.data)
+        })
+        .catch((err) => console.error(err));
+
+        API.newBoard(currentUserId)
+            .then((res) => {
+                dispatch({
+                    type: "setCurrentBoard",
+                    payload: res.data
+                });
+                dispatch({
+                    type: "setCurrentUser",
+                    payload: currentUser
+                });
+                history.push(`/boards/new/${res.data.id}`)
+            })
+            .catch(err => console.error(err))
     }
 
     const handleLogout = (e) => {
@@ -51,8 +77,8 @@ function BoardView() {
 
     return (
         <>
-        <Nav currentUserBoards={currentUserBoards} handleBoardSelect={handleBoardSelect} handleLogout={handleLogout} />
-            {board ? <h1>This will be the board view for {board.name}</h1>
+        <Nav currentUserBoards={currentUserBoards} handleBoardSelect={handleBoardSelect} handleNewBoard={handleNewBoard} handleLogout={handleLogout} />
+            {board && currentUserId ? <h1>Hi UserID: {currentUserId}! This will be the board view for {board.name}</h1>
             : <p>Finding that board...</p>}  
         </>
     )

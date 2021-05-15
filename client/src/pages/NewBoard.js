@@ -31,36 +31,43 @@ function NewBoard() {
                     type: "setCurrentBoard",
                     payload: res.data
                 });
-                history.push(`/boards/${res.data.id}`)
+                dispatch({
+                    type: "setCurrentUser",
+                    payload: currentUser
+                });
+                history.push(`/boards/new/${res.data.id}`)
             })
             .catch(err => console.error(err))
     }
 
     const handleImgSave = (e) => {
         e.preventDefault();
-        const newImgUrl  = e.target.parentNode.parentNode.getAttribute('id')
+        const newImgUrl = e.target.parentNode.parentNode.getAttribute('id')
         API.newImage(newImgUrl.toString())
-        .then((res) => {
-            console.log(res);
-        })
-        .catch(err => console.error(err))
+            .then((res) => {
+                console.log(res);
+            })
+            .catch(err => console.error(err))
     }
 
-    const handleBoardSelect = (bid) => {
+    const handleBoardSelect = (e) => {
+        const bid = e.target.id
         API.getBoard(bid)
             .then((res) => {
-                console.log('Current board: ', res.data);
                 dispatch({
                     type: "setCurrentBoard",
                     payload: res.data
                 });
+            })
+            .then(() => {
                 history.push(`/boards/${bid}`)
             })
+            .catch(err => console.error(err))
     }
 
     return (
         <>
-            <Nav currentUserBoards={currentUserBoards} handleBoardSelect={handleBoardSelect} />
+            <Nav currentUserBoards={currentUserBoards} handleBoardSelect={handleBoardSelect} handleNewBoard={handleNewBoard} />
             <Row>
                 <div id="newBoardName">
                     <TextInput style={{ width: 500 }}
@@ -72,18 +79,6 @@ function NewBoard() {
                         onChange={e => setBoardName(e.target.value)}
                     />
                 </div>
-                <Button
-                    large
-                    id="newBoardBtn"
-                    node="a"
-                    style={{
-                        marginRight: '5px'
-                    }}
-                    waves="light"
-                    onClick={handleNewBoard}
-                >
-                    Create New Board
-                </Button>
             </Row>
             <Row>
                 <Col l={6} s={12}>
@@ -94,7 +89,7 @@ function NewBoard() {
                     </CardPanel>
                     <MyDropzone />
                 </Col>
-                <PixabaySearch handleImgSave={handleImgSave}/>
+                <PixabaySearch handleImgSave={handleImgSave} />
             </Row>
         </>
     )
