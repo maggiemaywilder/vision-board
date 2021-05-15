@@ -9,17 +9,23 @@ const db = require('../models');
 router.get("/api/allImages", (req, res) => {
   response = imagesDB.findAllImages()
   res.send(response)
-})
+});
 
-router.post("/api/addImage", (req, res) => {
-  response = imagesDB.addImage({ text: req.text, url: req.url })
-  res.send(response)
-})
+router.post("/api/addImage", async ({ body }, res) => {
+  try {
+    let newImg = await db.Image.create({
+      url: body
+    });
+    res.json(newImg);
+  } catch (err) {
+    console.error(err);
+  } 
+});
 
 router.delete("/api/images/", (req, res) => {
   response = imagesDB.deleteImage({ where: { url: req.id } })
   res.send(response)
-})
+});
 
 router.get('/api/:uid/boards', async (req, res) => {
   try {
@@ -32,8 +38,6 @@ router.get('/api/:uid/boards', async (req, res) => {
   } catch (err) {
     console.error(err)
   }
-
-
 });
 
 router.get('/api/boards/:bid', async (req, res) => {

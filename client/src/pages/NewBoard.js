@@ -36,6 +36,16 @@ function NewBoard() {
             .catch(err => console.error(err))
     }
 
+    const handleImgSave = (e) => {
+        e.preventDefault();
+        const newImgUrl  = e.target.parentNode.parentNode.getAttribute('id')
+        API.newImage(newImgUrl.toString())
+        .then((res) => {
+            console.log(res);
+        })
+        .catch(err => console.error(err))
+    }
+
     const handleBoardSelect = (bid) => {
         API.getBoard(bid)
             .then((res) => {
@@ -84,7 +94,7 @@ function NewBoard() {
                     </CardPanel>
                     <MyDropzone />
                 </Col>
-                <PixabaySearch />
+                <PixabaySearch handleImgSave={handleImgSave}/>
             </Row>
         </>
     )

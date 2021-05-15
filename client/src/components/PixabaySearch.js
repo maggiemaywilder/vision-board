@@ -1,8 +1,8 @@
-import { Row, Col, MediaBox, CardPanel, TextInput, Button } from 'react-materialize';
+import { Row, Col, Card, CardTitle, CardPanel, TextInput, Button, Icon } from 'react-materialize';
 import { useState } from 'react';
 import pixabay from '../utils/pixabay';
 
-function PixabaySearch() {
+function PixabaySearch(props) {
     const [currentSearch, setCurrentSearch] = useState("");
     const [currentPix, setCurrentPix] = useState();
 
@@ -36,29 +36,19 @@ function PixabaySearch() {
                     />
                 </Row>
                 <Row>
-                    {currentSearch ?
-                        currentPix.map((pic, i) => (
-                            <>
-                                <MediaBox key={i}
-                                    id={`picture${i}`}
-                                    options={{
-                                        inDuration: 275,
-                                        onCloseEnd: null,
-                                        onCloseStart: null,
-                                        onOpenEnd: null,
-                                        onOpenStart: null,
-                                        outDuration: 200
-                                    }}
-                                >
-                                    <img
-                                        alt=""
-                                        src={pic.webformatURL}
-                                        width="650"
-                                    />
-                                </MediaBox>
-                                <p>{pic.tags}</p>
-                            </>
-                        ))
+                    {currentPix ?
+                    <>
+                        {currentPix.map((pic, i) => (
+                             <Card key={i}
+                             id={pic.webformatURL}
+                             actions={[
+                               <Button className="orange darken-3" onClick={props.handleImgSave}>Save to Board</Button>
+                             ]}
+                             header={<CardTitle image={pic.webformatURL}><span className="imgCardTitle">{pic.tags}</span></CardTitle>}
+                           >
+                           </Card>
+                        ))}
+                    </>    
                         : <h5>No search data yet</h5>}
                 </Row>
             </Col>

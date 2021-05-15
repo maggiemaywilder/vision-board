@@ -1,7 +1,7 @@
 module.exports = (sequelize, DataTypes) => {
     const Image = sequelize.define('Image', {
         text: DataTypes.BLOB,
-        url: DataTypes.STRING,
+        url: DataTypes.JSON,
     });
 // would want to switch to document management system if app got too big, ie too many images saved
     Image.associate = (models) => {
