@@ -11,6 +11,7 @@ import API from '../utils/API';
 function NewBoard() {
     const { state, dispatch } = useUserContext();
     const currentUser = state[0].user;
+    const currentBoard = state[1].currentBoard;
     const [currentUserBoards, setCurrentUserBoards] = useState();
     const [boardName, setBoardName] = useState("");
     const history = useHistory();
@@ -43,7 +44,7 @@ function NewBoard() {
     const handleImgSave = (e) => {
         e.preventDefault();
         const newImgUrl = e.target.parentNode.parentNode.getAttribute('id')
-        API.newImage(newImgUrl.toString())
+        API.newImage({img: newImgUrl.toString(), bid: currentBoard.id})
             .then((res) => {
                 console.log(res);
             })

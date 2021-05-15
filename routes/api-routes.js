@@ -14,7 +14,8 @@ router.get("/api/allImages", (req, res) => {
 router.post("/api/addImage", async ({ body }, res) => {
   try {
     let newImg = await db.Image.create({
-      url: body
+      url: body.img,
+      BoardId: body.bid
     });
     res.json(newImg);
   } catch (err) {
