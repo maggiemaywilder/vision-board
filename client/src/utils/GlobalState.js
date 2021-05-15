@@ -12,7 +12,7 @@ function userReducer(state, action) {
         {user: action.payload}
     ];
   case "setCurrentBoard":
-      return [ ...state, 
+      return [ ...state,
         {currentBoard: action.payload}
     ];
     case "logoutUser":

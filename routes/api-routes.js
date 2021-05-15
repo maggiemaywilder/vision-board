@@ -9,17 +9,23 @@ const db = require('../models');
 router.get("/api/allImages", (req, res) => {
   response = imagesDB.findAllImages()
   res.send(response)
-})
+});
 
-router.post("/api/addImage", (req, res) => {
-  response = imagesDB.addImage({ text: req.text, url: req.url })
-  res.send(response)
-})
+router.post("/api/addImage", async ({ body }, res) => {
+  try {
+    let newImg = await db.Image.create({
+      url: body
+    });
+    res.json(newImg);
+  } catch (err) {
+    console.error(err);
+  } 
+});
 
 router.delete("/api/images/", (req, res) => {
   response = imagesDB.deleteImage({ where: { url: req.id } })
   res.send(response)
-})
+});
 
 router.get('/api/:uid/boards', async (req, res) => {
   try {
@@ -32,8 +38,6 @@ router.get('/api/:uid/boards', async (req, res) => {
   } catch (err) {
     console.error(err)
   }
-
-
 });
 
 router.get('/api/boards/:bid', async (req, res) => {
@@ -46,6 +50,32 @@ router.get('/api/boards/:bid', async (req, res) => {
     res.json(currentBoard);
   } catch (err) {
     console.error(err)
+  }
+});
+
+router.get('/api/users/:username', async (req, res) => {
+  try {
+    let currentUser = db.User.findOne({
+      where: {
+        userName: req.params.username
+      }
+    });
+    res.json(currentUser);
+  } catch (err) {
+    console.error(err);
+  }
+});
+
+router.get('/api/users/:uid', async (req, res) => {
+  try {
+    let currentUser = await db.User.findAll({
+      where: {
+        id: parseInt(req.params.uid)
+      }
+    });
+    res.json(currentUser);
+  } catch (err) {
+    console.error(err);
   }
 });
 
@@ -76,12 +106,12 @@ router.post('/api/users', async (req, res) => {
   }
 });
 
-router.post('/api/boards/new', async (req, res) => {
+router.post('/api/boards/:uid/new', async (req, res) => {
   try {
     let newBoard = await db.Board.create({
       name: "New Board",
       topic: "None",
-      UserId: parseInt(req.body.id)
+      UserId: parseInt(req.params.uid)
     });
     res.json(newBoard);
   } catch (err) {

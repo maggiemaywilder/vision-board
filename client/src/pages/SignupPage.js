@@ -30,7 +30,7 @@ function SignupPage() {
             const newUserData = {
                 firstName: firstName,
                 lastName: lastName,
-                userName: firstName + lastName,
+                userName: JSON.stringify(firstName + lastName),
                 email: email,
                 password: password
             }
