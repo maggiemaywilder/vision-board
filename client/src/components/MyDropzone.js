@@ -1,5 +1,7 @@
 import React, { useState, useCallback } from 'react';
 import { useDropzone } from 'react-dropzone';
+import { fbapp, fileUpload } from '../utils/firebase';
+import { Button } from 'react-materialize';
 
 function MyDropzone() {
   const [files, setFiles] = useState([]);
@@ -15,6 +17,12 @@ function MyDropzone() {
     onDrop,
     accept: 'image/jpeg, image/png'
   });
+
+  const handleUpload = (e) => {
+    e.stopPropagation();
+    fileUpload(files[0])
+  }
+
   const fileList = files.map(file => (
     <li key={file.path}>
       {file.path}
@@ -30,8 +38,9 @@ function MyDropzone() {
         {isDragReject && "File type not accepted, sorry!"}
         <aside>
           <h4>Files</h4>
-          <ul>{fileList}</ul>
+          <ul>{fileList[0]}</ul>
         </aside>
+        <Button className="orange darken-3" onClick={handleUpload}>Upload</Button>
       </div>
     </section>
   );
