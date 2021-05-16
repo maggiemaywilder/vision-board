@@ -5,3 +5,8 @@
 .imgCardTitle {
     color: #f4a460
 }
+
+#dropzone, #pixabay {
+    border: 5px solid #f4a460
+}
+

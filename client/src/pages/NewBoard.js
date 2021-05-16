@@ -120,7 +120,7 @@ function NewBoard() {
                 <Col l={6} s={12}>
                     <CardPanel className="teal darken-3">
                         <span className="white-text">
-                            Add Personal Photos or Files
+                            Add Personal Images and Files (PDF, .jpeg, or .png)
                     </span>
                     </CardPanel>
                     <MyDropzone bid={currentBoard.id} boardName={currentBoard.name}/>
