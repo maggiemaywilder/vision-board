@@ -11,7 +11,7 @@ export const fbapp = firebase.initializeApp({
     measurementId: "G-DB8H24C33C"
   });
 
-export function fileUpload(file) {
+export function fileUpload(file, currentBid) {
     // Points to the root reference
     var storageRef = firebase.storage().ref();
 
@@ -24,7 +24,7 @@ export function fileUpload(file) {
 
     // Create the file metadata
     var metadata = {
-        contentType: file.type
+        contentType: file.type,
     };
 
     // Upload file and metadata to the object 'images/mountains.jpg'
@@ -68,9 +68,14 @@ export function fileUpload(file) {
             }
         },
         () => {
+            const bid = parseInt(currentBid)
             // Upload completed successfully, now we can get the download URL
             uploadTask.snapshot.ref.getDownloadURL().then((downloadURL) => {
-                
+                API.newNote({url: downloadURL}, bid)
+                .then((res) => {
+                    console.log('File saved successfully', res);
+                })
+                .catch(err => console.error(err));
             });
         }
     );

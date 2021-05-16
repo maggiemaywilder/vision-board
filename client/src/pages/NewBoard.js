@@ -6,12 +6,13 @@ import { useHistory } from "react-router-dom";
 import { useState, useEffect } from 'react';
 import { useUserContext } from '../utils/GlobalState';
 import API from '../utils/API';
+import M from 'materialize-css';
 
 
 function NewBoard() {
     const { state, dispatch } = useUserContext();
     const currentUser = state[0].user;
-    const currentBoard = state[1].currentBoard;
+    const currentBoard = state[2].currentBoard;
     const [currentUserBoards, setCurrentUserBoards] = useState();
     const [boardName, setBoardName] = useState("");
     const history = useHistory();
@@ -24,7 +25,8 @@ function NewBoard() {
             .catch(err => console.error(err))
     }, [currentUser.id]);
 
-    const handleNewBoard = () => {
+    const handleNewBoard = (e) => {
+        e.preventDefault();
         API.newBoard(currentUser)
             .then((res) => {
                 console.log(res);
@@ -43,10 +45,17 @@ function NewBoard() {
 
     const handleImgSave = (e) => {
         e.preventDefault();
+        e.persist();
         const newImgUrl = e.target.parentNode.parentNode.getAttribute('id')
         API.newImage({img: newImgUrl.toString(), bid: currentBoard.id})
             .then((res) => {
-                console.log(res);
+                if (res.data) {
+                    M.toast({html: `Image saved to ${boardName} successfully!`});
+                    e.target.parentNode.parentNode.style.opacity = "0.2";
+                    e.target.style.visibility = "hidden";
+                } else {
+                    M.toast({html: "Hmm, we ran into an issue saving that image. Please try again."})
+                }  
             })
             .catch(err => console.error(err))
     }
@@ -66,20 +75,46 @@ function NewBoard() {
             .catch(err => console.error(err))
     }
 
+    const handleBoardSave = (e) => {
+        e.preventDefault();
+        if (boardName === "") {
+            M.toast({html: "Looks like your board doesn't have a name..."})
+        } else {
+            API.updateBoard(parseInt(currentBoard.id), {name: boardName})
+            .then((res) => {
+                console.log(res);
+                M.toast({html: `${boardName} saved!`});
+                dispatch({
+                    type: "setCurrentBoard",
+                    payload: currentBoard
+                });
+                history.push(`/boards/${currentBoard.id}`);
+            })
+        }
+        
+    }
+
     return (
         <>
             <Nav currentUserBoards={currentUserBoards} handleBoardSelect={handleBoardSelect} handleNewBoard={handleNewBoard} />
             <Row>
+                <Col s={12} l={6}>
                 <div id="newBoardName">
                     <TextInput style={{ width: 500 }}
                         id="name"
                         label="Board Name"
                         name="boardName"
-                        placeHolder="New Board"
+                        placeholder="New Board"
                         value={boardName}
                         onChange={e => setBoardName(e.target.value)}
                     />
                 </div>
+                </Col>
+                <Col s={12} l={6}>
+                 <div className="container">
+                 <Button className="orange darken-3" onClick={handleBoardSave}>Save {boardName}</Button>
+                 </div>
+                </Col>
             </Row>
             <Row>
                 <Col l={6} s={12}>
@@ -88,7 +123,7 @@ function NewBoard() {
                             Add Personal Photos or Files
                     </span>
                     </CardPanel>
-                    <MyDropzone />
+                    <MyDropzone bid={currentBoard.id} boardName={currentBoard.name}/>
                 </Col>
                 <PixabaySearch handleImgSave={handleImgSave} />
             </Row>
