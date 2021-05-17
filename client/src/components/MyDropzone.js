@@ -1,7 +1,8 @@
+/* eslint-disable no-unused-vars */
 import React, { useState, useCallback } from 'react';
 import { useDropzone } from 'react-dropzone';
 import { fbapp, fileUpload } from '../utils/firebase';
-import { Row, Button, Collection, CollectionItem } from 'react-materialize';
+import { Row, Button } from 'react-materialize';
 import M from 'materialize-css';
 
 function MyDropzone(props) {

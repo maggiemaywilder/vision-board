@@ -15,13 +15,6 @@ export function fileUpload(file, currentBid) {
     // Points to the root reference
     var storageRef = firebase.storage().ref();
 
-    // Points to 'images'
-    var imagesRef = storageRef.child('images');
-
-    // Points to 'images/space.jpg'
-    // Note that you can use variables to create child values
-    var fileName = file.name;
-
     // Create the file metadata
     var metadata = {
         contentType: file.type,

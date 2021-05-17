@@ -1,4 +1,4 @@
-#dropzone {
+#dropzone, #nosearch {
     text-align: center;
 }
 
@@ -10,3 +10,7 @@
     border: 5px solid #f4a460
 }
 
+.pix {
+    max-width: 75%;
+    margin: auto
+}
