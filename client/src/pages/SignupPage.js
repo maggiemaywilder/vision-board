@@ -30,7 +30,7 @@ function SignupPage() {
             const newUserData = {
                 firstName: firstName,
                 lastName: lastName,
-                userName: JSON.stringify(firstName + lastName),
+                userName: firstName + lastName,
                 email: email,
                 password: password
             }
@@ -42,7 +42,7 @@ function SignupPage() {
             })
             .catch((err) => {
                 if (err) {
-                    M.toast({html: 'Oops! Looks like you already have an account with that email.'});
+                    M.toast({html: 'Oops! Looks like there was an issue signing you up. Please try again in a few minutes.'});
                 }
             });   
         };

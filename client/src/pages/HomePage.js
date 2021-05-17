@@ -39,12 +39,12 @@ const handleNewBoard = () => {
         .then((res) => {
             console.log(res);
             dispatch({
-                type: "setCurrentBoard",
-                payload: res.data
-            });
-            dispatch({
                 type: "setCurrentUser",
                 payload: currentUser
+            });
+            dispatch({
+                type: "setCurrentBoard",
+                payload: res.data
             });
             history.push(`/boards/new/${res.data.id}`)
         })

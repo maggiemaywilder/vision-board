@@ -35,8 +35,8 @@ export default {
       return axios.put(`/api/boards/${bid}`, data);
   },
   // Add a new link
-  newLink: function(linkData) {
-      return axios.post('/api/links', linkData);
+  newNote: function(noteData, bid) {
+      return axios.post(`/api/${bid}/notes`, noteData);
   },
   // Add a new image
   newImage: function(imgData) {

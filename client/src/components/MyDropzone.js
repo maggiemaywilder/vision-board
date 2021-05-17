@@ -1,7 +1,10 @@
 import React, { useState, useCallback } from 'react';
 import { useDropzone } from 'react-dropzone';
+import { fbapp, fileUpload } from '../utils/firebase';
+import { Row, Button, Collection, CollectionItem } from 'react-materialize';
+import M from 'materialize-css';
 
-function MyDropzone() {
+function MyDropzone(props) {
   const [files, setFiles] = useState([]);
   const onDrop = useCallback(acceptedFiles => {
     setFiles(prev => [...prev, ...acceptedFiles]);
@@ -13,25 +16,40 @@ function MyDropzone() {
     isDragReject,
   } = useDropzone({
     onDrop,
-    accept: 'image/jpeg, image/png'
+    accept: 'image/jpeg, image/png, application/pdf'
   });
-  const fileList = files.map(file => (
-    <li key={file.path}>
-      {file.path}
-    </li>
-  ));
+
+  const handleUpload = (e) => {
+    e.stopPropagation();
+    if (files) {
+      files.forEach((file) => {
+        fileUpload(file, parseInt(props.bid));
+      });
+      M.toast({ html: `File(s) saved to ${props.boardName} successfully!` });
+      setFiles([]);
+    } else {
+      M.toast({ html: "Please drag and drop or select a file to upload." });
+    }
+  }
 
   return (
     <section className="container">
-      <div {...getRootProps({ className: 'dropzone' })}>
+      <div id="dropzone" {...getRootProps({ className: 'dropzone' })}>
         <input {...getInputProps()} />
         {!isDragActive && 'Click here or drop a file to upload!'}
         {isDragActive && !isDragReject && "Drop it like it's hot!"}
         {isDragReject && "File type not accepted, sorry!"}
-        <aside>
-          <h4>Files</h4>
-          <ul>{fileList}</ul>
-        </aside>
+        <Row>
+          <p>Files:</p>
+          <ul>
+            {files.map(file => (
+              <li>
+                {file.path}
+              </li>
+            ))}
+          </ul>
+        </Row>
+        <Button className="orange darken-3" onClick={handleUpload}>Upload</Button>
       </div>
     </section>
   );

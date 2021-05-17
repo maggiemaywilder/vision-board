@@ -123,31 +123,29 @@ router.post('/api/boards/:uid/new', async (req, res) => {
 //update where if we want to identify by id
 router.put('/api/boards/:bid', async (req, res) => {
   try {
-    let adjustedBoard = await db.Board.update({ name: req.body.name, topic: req.body.topic }, {
+    let adjustedBoard = await db.Board.update({
+      name: req.body.name
+     }, {
       where: {
-        name: req.body.name
+        id: parseInt(req.params.bid)
       }
     });
-    res.json(adjustedBoard);
+    res.send(adjustedBoard);
   } catch (err) {
     console.error(err);
   }
 });
 
-router.post('/api/links', async (req, res) => {
+router.post('/api/:bid/notes', async (req, res) => {
   try {
     let newNote = await db.Note.create({
-      type: req.body.text,
-      topic: req.body.url
+      url: req.body.url,
+      BoardId: parseInt(req.params.bid)
     });
     res.json(newNote);
   } catch (err) {
     console.error(err)
   }
-
-});
-
-router.post('/api/images', async (req, res) => {
 
 });
 

@@ -26,6 +26,7 @@ function PixabaySearch(props) {
                     </span>
                     </CardPanel>
                 </Row>
+                <div id="pixabay">
                 <Row>
                     <TextInput style={{ width: 500 }}
                         name="currentSearch"
@@ -41,6 +42,7 @@ function PixabaySearch(props) {
                         {currentPix.map((pic, i) => (
                              <Card key={i}
                              id={pic.webformatURL}
+                             className="hoverable"
                              actions={[
                                <Button className="orange darken-3" onClick={props.handleImgSave}>Save to Board</Button>
                              ]}
@@ -48,9 +50,13 @@ function PixabaySearch(props) {
                            >
                            </Card>
                         ))}
-                    </>    
-                        : <h5>No search data yet</h5>}
+                    </> : 
+                        <div>
+                            <h5 id="nosearch">No search data yet</h5>
+                        </div>
+                    }
                 </Row>
+                </div>
             </Col>
         </>
     )
