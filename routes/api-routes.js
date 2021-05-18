@@ -194,11 +194,14 @@ router.put('/api/boards/:bid', async (req, res) => {
   }
 });
 
-router.post('/api/:bid/notes', async (req, res) => {
+router.post('/api/:bid/uploads', async (req, res) => {
   try {
     let newUpload = await db.Upload.create({
-      type: req.body.text,
-      topic: req.body.url
+      url: req.body.url
+    }, {
+      where: {
+        BoardId: parseInt(req.params.bid)
+      }
     });
     res.json(newUpload);
   } catch (err) {
@@ -233,7 +236,7 @@ router.delete('/api/links/:linkId', async (req, res) => {
 });
 
 
-router.delete('/api/tags/:tagId', (req, res) => {
+router.delete('/api/tags/:tagId', async (req, res) => {
   try {
     let deleteTag = await db.Tag.delete({
       where: {

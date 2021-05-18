@@ -6,7 +6,7 @@ module.exports = (sequelize, DataTypes) => {
     Tag.associate = (models) => {
         Tag.belongsTo(models.Image);
 
-        Tag.belongsTo(models.Note);
+        Tag.belongsTo(models.Upload);
     };
 
     return Tag;
