@@ -4,9 +4,8 @@ module.exports = (sequelize, DataTypes) => {
     });
 
     Tag.associate = (models) => {
-        Tag.belongsTo(models.Image);
+        Tag.hasMany(models.TagBridge);
 
-        Tag.belongsTo(models.Note);
     };
 
     return Tag;
