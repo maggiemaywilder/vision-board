@@ -1,4 +1,5 @@
 module.exports = (sequelize, DataTypes) => {
+    // added from pixaby
     const Image = sequelize.define('Image', {
         text: DataTypes.BLOB,
         url: DataTypes.JSON,
