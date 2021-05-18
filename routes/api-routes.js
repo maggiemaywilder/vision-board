@@ -6,7 +6,7 @@ const passport = require('../config/passport');
 const path = require('path');
 const db = require('../models');
 
-router.get("/api/allImages", (req, res) => {
+router.get("/api/allImage", (req, res) => {
   response = imagesDB.findAllImages()
   res.send(response)
 });
@@ -23,7 +23,7 @@ router.post("/api/addImage", async ({ body }, res) => {
   } 
 });
 
-router.delete("/api/images/", (req, res) => {
+router.delete("/api/images/:imgId", (req, res) => {
   response = imagesDB.deleteImage({ where: { url: req.id } })
   res.send(response)
 });
@@ -196,35 +196,54 @@ router.put('/api/boards/:bid', async (req, res) => {
 
 router.post('/api/:bid/notes', async (req, res) => {
   try {
-    let newNote = await db.Note.create({
-      url: req.body.url,
-      BoardId: parseInt(req.params.bid)
-    });
-    res.json(newNote);
-  } catch (err) {
-    console.error(err)
-  }
-
-});
-
-router.delete('/api/links/:linkId', async (req, res) => {
-  try {
-    let deleteNote = await db.Note.delete({
+    let newUpload = await db.Upload.create({
       type: req.body.text,
       topic: req.body.url
     });
-    res.json(deleteNote);
+    res.json(newUpload);
   } catch (err) {
     console.error(err)
   }
 
 });
 
-router.delete('/api/images/:imgId', (req, res) => {
+
+router.post('api/tags/', async (req, res) => {
+  try {
+    let newTag = await db.Tag.create({
+      tagName: req.body.text
+    });
+    res.json(newTag);
+  } catch(err) {
+    console.error(err)
+  }
+})
+
+router.delete('/api/links/:linkId', async (req, res) => {
+  try {
+    let deleteUpload = await db.Upload.delete({
+      type: req.body.text,
+      topic: req.body.url
+    });
+    res.json(deleteUpload);
+  } catch (err) {
+    console.error(err)
+  }
 
 });
 
+
 router.delete('/api/tags/:tagId', (req, res) => {
+  try {
+    let deleteTag = await db.Tag.delete({
+      where: {
+        name: req.body.name
+      }
+     });
+     res.join(deleteTag);
+  } catch (err) {
+    console.error(err)
+  }
 
 });
 
