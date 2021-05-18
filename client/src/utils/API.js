@@ -44,7 +44,11 @@ export default {
   },
   // Add a new tag
   newTag: function(mediaId, tagData) {
-      return axios.post(`/api/tags/${mediaId}`, tagData)
+      return axios.post(`/api/tags/${mediaId}`, tagData);
+  },
+  // Add a link
+  newLink: function(linkData, bid) {
+    return axios.post(`/api/${bid}/links`, linkData);
   },
   // Delete a link
   deleteLink: function(linkId) {
