@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useHistory, useParams } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import API from "../utils/API";
 import { useUserContext } from '../utils/GlobalState';
 import Nav from '../components/Navbar';

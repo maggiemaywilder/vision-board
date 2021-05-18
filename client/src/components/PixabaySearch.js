@@ -1,4 +1,4 @@
-import { Row, Col, Card, CardTitle, CardPanel, TextInput, Button, Icon } from 'react-materialize';
+import { Row, Col, Card, CardTitle, CardPanel, TextInput, Button } from 'react-materialize';
 import { useState } from 'react';
 import pixabay from '../utils/pixabay';
 
@@ -36,13 +36,13 @@ function PixabaySearch(props) {
                         onChange={handleSearch}
                     />
                 </Row>
-                <Row>
+                <Row id="pixRow">
                     {currentPix ?
                     <>
                         {currentPix.map((pic, i) => (
                              <Card key={i}
                              id={pic.webformatURL}
-                             className="hoverable"
+                             className="hoverable pix"
                              actions={[
                                <Button className="orange darken-3" onClick={props.handleImgSave}>Save to Board</Button>
                              ]}
@@ -51,8 +51,8 @@ function PixabaySearch(props) {
                            </Card>
                         ))}
                     </> : 
-                        <div>
-                            <h5 id="nosearch">No search data yet</h5>
+                        <div id="nosearch">
+                            <h5>No search data yet</h5>
                         </div>
                     }
                 </Row>
