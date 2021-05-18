@@ -10,9 +10,13 @@ export default {
   getBoard: function(bid) {
     return axios.get(`/api/boards/${bid}`);
   },
-  // Gets all users
-  getUsers: function() {
-    return axios.get("/api/users/")
+  // Gets user by username
+  getUserByUsername: function(username) {
+    return axios.get(`/api/users/${username}`)
+  },
+  // Gets user by uid
+  getUserById: function(uid) {
+    return axios.get(`/api/users/${uid}`)
   },
   // Gets user with given uid
   loginUser: function(userData) {
@@ -23,16 +27,16 @@ export default {
     return axios.post('/api/users', userData);
   },
   // Add a new board to the database
-  newBoard: function(userData) {
-      return axios.post('/api/boards/new', userData);
+  newBoard: function(uid) {
+      return axios.post(`/api/boards/${uid}/new`);
   },
   // Update a board with given id with data  
   updateBoard: function(bid, data) {
       return axios.put(`/api/boards/${bid}`, data);
   },
   // Add a new link
-  newLink: function(linkData) {
-      return axios.post('/api/links', linkData);
+  newNote: function(noteData, bid) {
+      return axios.post(`/api/${bid}/notes`, noteData);
   },
   // Add a new image
   newImage: function(imgData) {

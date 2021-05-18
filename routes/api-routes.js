@@ -9,18 +9,26 @@ const db = require('../models');
 router.get("/api/allImage", (req, res) => {
   response = imagesDB.findAllImages()
   res.send(response)
-})
+});
 
-router.post("/api/addImage", (req, res) => {
-  response = imagesDB.addImage({ text: req.text, url: req.url })
-  res.send(response)
-})
+router.post("/api/addImage", async ({ body }, res) => {
+  try {
+    let newImg = await db.Image.create({
+      url: body.img,
+      BoardId: body.bid
+    });
+    res.json(newImg);
+  } catch (err) {
+    console.error(err);
+  } 
+});
 
 router.delete("/api/images/:imgId", (req, res) => {
   response = imagesDB.deleteImage({ where: { url: req.id } })
   res.send(response)
-})
+});
 
+// display users' boards
 router.get('/api/:uid/boards', async (req, res) => {
   try {
     let currentUserBoards = await db.Board.findAll({
@@ -32,10 +40,63 @@ router.get('/api/:uid/boards', async (req, res) => {
   } catch (err) {
     console.error(err)
   }
-
-
 });
 
+// batch of gets for displaying board: notes, tags, and images
+router.get('/api/:bid/notes', async (req, res) => {
+  try {
+    let currentNotes = await db.Note.findAll({
+      where: {
+        BoardId: parseInt(req.params.bid)
+      }
+    });
+    console.log(currentNotes);
+  } catch (err) {
+    console.error(err)
+  }
+});
+
+// router.get('/api/:bid/tags', async (req, res) => {
+//   try {
+//     let currentTags = await db.Tag.findAll({
+//       where: {
+//         BoardId: parseInt(req.params.bid)
+//       }
+//     });
+//     console.log(currentNotes);
+//   } catch (err) {
+//     console.error(err)
+//   }
+// });
+
+// router.get('/api/:bid/notes', async (req, res) => {
+//   try {
+//     let currentNotes = await db.Note.findAll({
+//       where: {
+//         BoardId: parseInt(req.params.bid)
+//       }
+//     });
+//     console.log(currentNotes);
+//   } catch (err) {
+//     console.error(err)
+//   }
+// });
+
+// router.get('/api/:bid/notes', async (req, res) => {
+//   try {
+//     let currentNotes = await db.Note.findAll({
+//       where: {
+//         BoardId: parseInt(req.params.bid)
+//       }
+//     });
+//     console.log(currentNotes);
+//   } catch (err) {
+//     console.error(err)
+//   }
+// });
+
+
+// display specific board 
 router.get('/api/boards/:bid', async (req, res) => {
   try {
     let currentBoard = await db.Board.findOne({
@@ -46,6 +107,34 @@ router.get('/api/boards/:bid', async (req, res) => {
     res.json(currentBoard);
   } catch (err) {
     console.error(err)
+  }
+});
+
+// since userName is created from first and last name, I think this should be based on userID
+// but since that one is next, do we need this one?
+router.get('/api/users/:username', async (req, res) => {
+  try {
+    let currentUser = db.User.findOne({
+      where: {
+        userName: req.params.username
+      }
+    });
+    res.json(currentUser);
+  } catch (err) {
+    console.error(err);
+  }
+});
+
+router.get('/api/users/:uid', async (req, res) => {
+  try {
+    let currentUser = await db.User.findAll({
+      where: {
+        id: parseInt(req.params.uid)
+      }
+    });
+    res.json(currentUser);
+  } catch (err) {
+    console.error(err);
   }
 });
 
@@ -76,12 +165,12 @@ router.post('/api/users', async (req, res) => {
   }
 });
 
-router.post('/api/boards/new', async (req, res) => {
+router.post('/api/boards/:uid/new', async (req, res) => {
   try {
     let newBoard = await db.Board.create({
       name: "New Board",
       topic: "None",
-      UserId: parseInt(req.body.id)
+      UserId: parseInt(req.params.uid)
     });
     res.json(newBoard);
   } catch (err) {
@@ -92,18 +181,20 @@ router.post('/api/boards/new', async (req, res) => {
 //update where if we want to identify by id
 router.put('/api/boards/:bid', async (req, res) => {
   try {
-    let adjustedBoard = await db.Board.update({ name: req.body.name, topic: req.body.topic }, {
+    let adjustedBoard = await db.Board.update({
+      name: req.body.name
+     }, {
       where: {
-        name: req.body.name
+        id: parseInt(req.params.bid)
       }
     });
-    res.json(adjustedBoard);
+    res.send(adjustedBoard);
   } catch (err) {
     console.error(err);
   }
 });
 
-router.post('/api/links', async (req, res) => {
+router.post('/api/:bid/notes', async (req, res) => {
   try {
     let newUpload = await db.Upload.create({
       type: req.body.text,
@@ -116,6 +207,7 @@ router.post('/api/links', async (req, res) => {
 
 });
 
+
 router.post('api/tags/', async (req, res) => {
   try {
     let newTag = await db.Tag.create({
@@ -126,7 +218,6 @@ router.post('api/tags/', async (req, res) => {
     console.error(err)
   }
 })
-
 
 router.delete('/api/links/:linkId', async (req, res) => {
   try {
