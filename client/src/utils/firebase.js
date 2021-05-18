@@ -64,7 +64,7 @@ export function fileUpload(file, currentBid) {
             const bid = parseInt(currentBid)
             // Upload completed successfully, now we can get the download URL
             uploadTask.snapshot.ref.getDownloadURL().then((downloadURL) => {
-                API.newNote({url: downloadURL}, bid)
+                API.newUpload({url: downloadURL}, bid)
                 .then((res) => {
                     console.log('File saved successfully', res);
                 })

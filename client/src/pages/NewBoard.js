@@ -47,7 +47,7 @@ function NewBoard() {
         e.preventDefault();
         e.persist();
         const newImgUrl = e.target.parentNode.parentNode.getAttribute('id')
-        API.newImage({img: newImgUrl.toString(), bid: currentBoard.id})
+        API.newImage({img: newImgUrl, bid: currentBoard.id})
             .then((res) => {
                 if (res.data) {
                     M.toast({html: `Image saved to ${boardName} successfully!`});

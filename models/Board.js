@@ -16,7 +16,7 @@ module.exports = (sequelize, DataTypes) => {
     Board.associate = (models) => {
         Board.belongsTo(models.User);
 
-        Board.hasMany(models.Note);
+        Board.hasMany(models.Upload);
     };
 
     return Board;
