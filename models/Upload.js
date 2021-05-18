@@ -10,6 +10,8 @@ module.exports = (sequelize, DataTypes) => {
 
     Note.associate = (models) => {
         Note.belongsTo(models.Board);
+
+        Note.hasMany(models.Tag);
     };
     return Note;
 };

@@ -28,6 +28,7 @@ router.delete("/api/images/", (req, res) => {
   res.send(response)
 });
 
+// display users' boards
 router.get('/api/:uid/boards', async (req, res) => {
   try {
     let currentUserBoards = await db.Board.findAll({
@@ -41,6 +42,61 @@ router.get('/api/:uid/boards', async (req, res) => {
   }
 });
 
+// batch of gets for displaying board: notes, tags, and images
+router.get('/api/:bid/notes', async (req, res) => {
+  try {
+    let currentNotes = await db.Note.findAll({
+      where: {
+        BoardId: parseInt(req.params.bid)
+      }
+    });
+    console.log(currentNotes);
+  } catch (err) {
+    console.error(err)
+  }
+});
+
+router.get('/api/:bid/tags', async (req, res) => {
+  try {
+    let currentTags = await db.Tag.findAll({
+      where: {
+        BoardId: parseInt(req.params.bid)
+      }
+    });
+    console.log(currentNotes);
+  } catch (err) {
+    console.error(err)
+  }
+});
+
+// router.get('/api/:bid/notes', async (req, res) => {
+//   try {
+//     let currentNotes = await db.Note.findAll({
+//       where: {
+//         BoardId: parseInt(req.params.bid)
+//       }
+//     });
+//     console.log(currentNotes);
+//   } catch (err) {
+//     console.error(err)
+//   }
+// });
+
+// router.get('/api/:bid/notes', async (req, res) => {
+//   try {
+//     let currentNotes = await db.Note.findAll({
+//       where: {
+//         BoardId: parseInt(req.params.bid)
+//       }
+//     });
+//     console.log(currentNotes);
+//   } catch (err) {
+//     console.error(err)
+//   }
+// });
+
+
+// display specific board 
 router.get('/api/boards/:bid', async (req, res) => {
   try {
     let currentBoard = await db.Board.findOne({
@@ -54,6 +110,8 @@ router.get('/api/boards/:bid', async (req, res) => {
   }
 });
 
+// since userName is created from first and last name, I think this should be based on userID
+// but since that one is next, do we need this one?
 router.get('/api/users/:username', async (req, res) => {
   try {
     let currentUser = db.User.findOne({
