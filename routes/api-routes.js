@@ -56,18 +56,18 @@ router.get('/api/:bid/notes', async (req, res) => {
   }
 });
 
-router.get('/api/:bid/tags', async (req, res) => {
-  try {
-    let currentTags = await db.Tag.findAll({
-      where: {
-        BoardId: parseInt(req.params.bid)
-      }
-    });
-    console.log(currentNotes);
-  } catch (err) {
-    console.error(err)
-  }
-});
+// router.get('/api/:bid/tags', async (req, res) => {
+//   try {
+//     let currentTags = await db.Tag.findAll({
+//       where: {
+//         BoardId: parseInt(req.params.bid)
+//       }
+//     });
+//     console.log(currentNotes);
+//   } catch (err) {
+//     console.error(err)
+//   }
+// });
 
 // router.get('/api/:bid/notes', async (req, res) => {
 //   try {

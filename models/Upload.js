@@ -1,6 +1,7 @@
 
 module.exports = (sequelize, DataTypes) => {
-    const Note = sequelize.define('Note', {
+    // this is things added via dropzone
+    const Upload = sequelize.define('Upload', {
         text: DataTypes.STRING(1234),
         url: {
             type: DataTypes.STRING,
@@ -8,10 +9,10 @@ module.exports = (sequelize, DataTypes) => {
         } 
     });
 
-    Note.associate = (models) => {
-        Note.belongsTo(models.Board);
+    Upload.associate = (models) => {
+        Upload.belongsTo(models.Board);
 
-        Note.hasMany(models.Tag);
+        Upload.hasMany(models.Tag);
     };
-    return Note;
+    return Upload;
 };
