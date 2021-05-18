@@ -207,7 +207,22 @@ router.post('/api/:bid/uploads', async (req, res) => {
   } catch (err) {
     console.error(err)
   }
+});
 
+router.post('/api/:bid/links', async (req, res) => {
+  try {
+    let newLink = await db.Link.create({
+      url: req.body.url,
+      type: req.body.type
+    }, {
+      where: {
+        BoardId: parseInt(req.params.bid)
+      }
+    });
+    res.json(newLink);
+  } catch (err) {
+    console.error(err)
+  }
 });
 
 
