@@ -24,7 +24,7 @@ function MyDropzone(props) {
     e.stopPropagation();
     if (files) {
       files.forEach((file) => {
-        fileUpload(file, parseInt(props.bid));
+        fileUpload(file, props.bid);
       });
       M.toast({ html: `File(s) saved to ${props.boardName} successfully!` });
       setFiles([]);

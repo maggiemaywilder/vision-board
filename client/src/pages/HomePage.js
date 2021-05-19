@@ -42,10 +42,6 @@ const handleNewBoard = () => {
                 type: "setCurrentUser",
                 payload: currentUser
             });
-            dispatch({
-                type: "setCurrentBoard",
-                payload: res.data
-            });
             history.push(`/boards/new/${res.data.id}`)
         })
         .catch(err => console.error(err))

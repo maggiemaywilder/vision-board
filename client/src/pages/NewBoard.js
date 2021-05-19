@@ -3,7 +3,7 @@ import MyDropzone from '../components/MyDropzone';
 import PixabaySearch from '../components/PixabaySearch';
 import UserLinks from '../components/UserLinks';
 import { Row, Col, CardPanel, TextInput, Button } from 'react-materialize';
-import { useHistory } from "react-router-dom";
+import { useHistory, useParams } from "react-router-dom";
 import { useState, useEffect } from 'react';
 import { useUserContext } from '../utils/GlobalState';
 import API from '../utils/API';
@@ -12,36 +12,43 @@ import M from 'materialize-css';
 
 function NewBoard() {
     const { state, dispatch } = useUserContext();
-    const currentUser = state[0].user;
-    const currentBoard = state[2].currentBoard;
+    const [currentUser, setCurrentUser] = useState();
+    const { bid } = useParams();
+    const [currentBoard, setCurrentBoard] = useState();
     const [currentUserBoards, setCurrentUserBoards] = useState();
     const [boardName, setBoardName] = useState("");
     const history = useHistory();
 
     useEffect(() => {
-        API.getUserBoards(currentUser.id)
+        API.getBoard(bid)
             .then((res) => {
-                setCurrentUserBoards(res.data);
+                setCurrentBoard(res.data);
+                API.getUserBoards(res.data.UserId)
+                .then((res) => {
+                    setCurrentUserBoards(res.data);
+                })
+                .catch(err => console.error(err));
+                API.getUserById(res.data.UserId)
+                .then((res) => {
+                    setCurrentUser(res.data);
+                })
+                .catch(err => console.error(err));
             })
-            .catch(err => console.error(err))
-    }, [currentUser.id]);
+            .catch(err => console.error(err));
+    }, [bid]);
 
     const handleNewBoard = (e) => {
         e.preventDefault();
-        API.newBoard(currentUser)
+        API.newBoard(currentUser.id)
             .then((res) => {
                 console.log(res);
-                dispatch({
-                    type: "setCurrentBoard",
-                    payload: res.data
-                });
                 dispatch({
                     type: "setCurrentUser",
                     payload: currentUser
                 });
                 history.push(`/boards/new/${res.data.id}`)
             })
-            .catch(err => console.error(err))
+            .catch(err => console.error(err));
     }
 
     const handleImgSave = (e) => {
@@ -95,10 +102,17 @@ function NewBoard() {
 
     }
 
+    const handleLogout = (e) => {
+        e.preventDefault();
+        history.push('/');
+    }
+
     return (
         <>
-            <Nav currentUserBoards={currentUserBoards} handleBoardSelect={handleBoardSelect} handleNewBoard={handleNewBoard} />
-            <Row>
+            <Nav currentUserBoards={currentUserBoards} handleBoardSelect={handleBoardSelect} handleNewBoard={handleNewBoard} handleLogout={handleLogout}/>
+            { currentBoard ?
+                <>
+                <Row>
                 <Col s={12} l={6}>
                     <div id="newBoardName">
                         <TextInput style={{ width: 500 }}
@@ -136,6 +150,9 @@ function NewBoard() {
                 </Col>
                 <PixabaySearch handleImgSave={handleImgSave} />
             </Row>
+            </>
+            : <p>Finding that board...</p>}
+            
         </>
     )
 }

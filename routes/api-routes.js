@@ -23,11 +23,6 @@ router.post("/api/addImage", async ({ body }, res) => {
   } 
 });
 
-router.delete("/api/images/:imgId", (req, res) => {
-  response = imagesDB.deleteImage({ where: { url: req.id } })
-  res.send(response)
-});
-
 // display users' boards
 router.get('/api/:uid/boards', async (req, res) => {
   try {
@@ -56,44 +51,44 @@ router.get('/api/:bid/notes', async (req, res) => {
   }
 });
 
-// router.get('/api/:bid/tags', async (req, res) => {
-//   try {
-//     let currentTags = await db.Tag.findAll({
-//       where: {
-//         BoardId: parseInt(req.params.bid)
-//       }
-//     });
-//     console.log(currentNotes);
-//   } catch (err) {
-//     console.error(err)
-//   }
-// });
+router.get('/api/:bid/uploads', async (req, res) => {
+  try {
+    let currentUploads = await db.Upload.findAll({
+      where: {
+        BoardId: parseInt(req.params.bid)
+      }
+    });
+    res.json(currentUploads);
+  } catch (err) {
+    console.error(err)
+  }
+});
 
-// router.get('/api/:bid/notes', async (req, res) => {
-//   try {
-//     let currentNotes = await db.Note.findAll({
-//       where: {
-//         BoardId: parseInt(req.params.bid)
-//       }
-//     });
-//     console.log(currentNotes);
-//   } catch (err) {
-//     console.error(err)
-//   }
-// });
+router.get('/api/:bid/images', async (req, res) => {
+  try {
+    let currentImages = await db.Image.findAll({
+      where: {
+        BoardId: parseInt(req.params.bid)
+      }
+    });
+    res.json(currentImages);
+  } catch (err) {
+    console.error(err)
+  }
+});
 
-// router.get('/api/:bid/notes', async (req, res) => {
-//   try {
-//     let currentNotes = await db.Note.findAll({
-//       where: {
-//         BoardId: parseInt(req.params.bid)
-//       }
-//     });
-//     console.log(currentNotes);
-//   } catch (err) {
-//     console.error(err)
-//   }
-// });
+router.get('/api/:bid/links', async (req, res) => {
+  try {
+    let currentLinks = await db.Link.findAll({
+      where: {
+        BoardId: parseInt(req.params.bid)
+      }
+    });
+    res.json(currentLinks);
+  } catch (err) {
+    console.error(err)
+  }
+});
 
 
 // display specific board 
@@ -181,14 +176,12 @@ router.post('/api/boards/:uid/new', async (req, res) => {
 //update where if we want to identify by id
 router.put('/api/boards/:bid', async (req, res) => {
   try {
-    let adjustedBoard = await db.Board.update({
-      name: req.body.name
-     }, {
+    let adjustedBoard = await db.Board.update({name: req.body.name}, {
       where: {
-        id: parseInt(req.params.bid)
+          id: parseInt(req.params.bid)
       }
     });
-    res.send(adjustedBoard);
+    res.json([ adjustedBoard ]);
   } catch (err) {
     console.error(err);
   }
@@ -197,12 +190,9 @@ router.put('/api/boards/:bid', async (req, res) => {
 router.post('/api/:bid/uploads', async (req, res) => {
   try {
     let newUpload = await db.Upload.create({
-      url: req.body.url
-    }, {
-      where: {
-        BoardId: parseInt(req.params.bid)
-      }
-    });
+      url: req.body.url,
+      BoardId: parseInt(req.params.bid)
+      });
     res.json(newUpload);
   } catch (err) {
     console.error(err)
@@ -213,11 +203,8 @@ router.post('/api/:bid/links', async (req, res) => {
   try {
     let newLink = await db.Link.create({
       url: req.body.url,
-      type: req.body.type
-    }, {
-      where: {
-        BoardId: parseInt(req.params.bid)
-      }
+      type: req.body.type,
+      BoardId: parseInt(req.params.bid)
     });
     res.json(newLink);
   } catch (err) {
@@ -237,17 +224,43 @@ router.post('api/tags/', async (req, res) => {
   }
 })
 
-router.delete('/api/links/:linkId', async (req, res) => {
+router.delete('/api/uploads/:mid', async (req, res) => {
   try {
-    let deleteUpload = await db.Upload.delete({
-      type: req.body.text,
-      topic: req.body.url
+    let deleteUpload = await db.Upload.destroy({
+      where: {
+        id: parseInt(req.params.mid)
+      }
     });
     res.json(deleteUpload);
   } catch (err) {
     console.error(err)
   }
+});
 
+router.delete('/api/images/:iid', async (req, res) => {
+  try {
+    let deleteImg = await db.Image.destroy({
+      where: {
+        id: parseInt(req.params.iid)
+      }
+    });
+    res.json(deleteImg);
+  } catch (err) {
+    console.error(err)
+  }
+});
+
+router.delete('/api/links/:lid', async (req, res) => {
+  try {
+    let deleteLink = await db.Link.destroy({
+      where: {
+        id: parseInt(req.params.lid)
+      }
+    });
+    res.json(deleteLink);
+  } catch (err) {
+    console.error(err)
+  }
 });
 
 
