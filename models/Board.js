@@ -20,7 +20,6 @@ module.exports = (sequelize, DataTypes) => {
         Board.hasMany(models.Image);
         Board.hasMany(models.ManualEntry);
         Board.belongsToMany(models.Tag, { through: 'Tag_Board'});
-
     };
 
     return Board;

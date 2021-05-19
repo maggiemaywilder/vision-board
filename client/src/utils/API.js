@@ -35,8 +35,8 @@ export default {
       return axios.put(`/api/boards/${bid}`, data);
   },
   // Add a new link
-  newNote: function(noteData, bid) {
-      return axios.post(`/api/${bid}/notes`, noteData);
+  newUpload: function(noteData, bid) {
+      return axios.post(`/api/${bid}/uploads`, noteData);
   },
   // Add a new image
   newImage: function(imgData) {
@@ -44,7 +44,11 @@ export default {
   },
   // Add a new tag
   newTag: function(mediaId, tagData) {
-      return axios.post(`/api/tags/${mediaId}`, tagData)
+      return axios.post(`/api/tags/${mediaId}`, tagData);
+  },
+  // Add a link
+  newLink: function(linkData, bid) {
+    return axios.post(`/api/${bid}/links`, linkData);
   },
   // Delete a link
   deleteLink: function(linkId) {
