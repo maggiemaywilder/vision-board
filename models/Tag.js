@@ -4,7 +4,7 @@ module.exports = (sequelize, DataTypes) => {
     });
 
     Tag.associate = (models) => {
-        Tag.hasMany(models.TagBridge);
+        Tag.belongsToMany(models.Board, { through: 'Tag_Board'});
 
     };
 

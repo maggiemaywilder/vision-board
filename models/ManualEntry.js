@@ -7,17 +7,17 @@ module.exports = (sequelize, DataTypes) => {
             type: DataTypes.STRING,
             allowNull: false
         },
-        isVideo: DataTypes.Boolean,
-        isResearch: DataTypes.Boolean,
-        isInspiration: DataTypes.Boolean,
+        isVideo: DataTypes.BOOLEAN,
+        isResearch: DataTypes.BOOLEAN,
+        isInspiration: DataTypes.BOOLEAN,
         // adding isExperience for things like hands-on notes or links to social media posts, like I tried this and this was my experience
-        isExperience: DataTypes.Boolean
+        isExperience: DataTypes.BOOLEAN
     });
 
     ManualEntry.associate = (models) => {
         ManualEntry.belongsTo(models.Board);
 
-        ManualEntry.hasMany(models.TagBridge);
+        ManualEntry.belongsToMany(models.Tag_Board, { through: 'Manual_bridge' });
 
     };
     return ManualEntry;

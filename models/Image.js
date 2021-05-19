@@ -8,7 +8,7 @@ module.exports = (sequelize, DataTypes) => {
     Image.associate = (models) => {
         Image.belongsTo(models.Board);
 
-        Image.hasMany(models.TagBridge);
+        Image.belongsToMany(models.Tag_Board, { through: 'Image_bridge' });
     };
     return Image;
 };
