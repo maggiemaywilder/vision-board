@@ -2,15 +2,27 @@
     text-align: center;
 }
 
-.imgCardTitle {
-    color: #f4a460
+#dropzone, #pixabay {
+    border: 5px solid #f4a460;
 }
 
-#dropzone, #pixabay {
-    border: 5px solid #f4a460
+#boardViewName {
+    text-align: center;
+}
+
+#boardViewRename, #boardSaveBtn {
+    display: none;
+}
+
+.imgCardTitle {
+    color: #f4a460;
 }
 
 .pix {
     max-width: 75%;
-    margin: auto
+    margin: auto;
+}
+
+.deleteImgBtn, .deleteUploadBtn, .deleteLinkBtn  {
+    display: none;
 }
