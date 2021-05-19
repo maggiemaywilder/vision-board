@@ -12,7 +12,7 @@ module.exports = (sequelize, DataTypes) => {
     Upload.associate = (models) => {
         Upload.belongsTo(models.Board);
 
-        Upload.hasMany(models.Tag);
+        Upload.belongsToMany(models.Tag_Board, { through: 'Upload_bridge' });
     };
     return Upload;
 };

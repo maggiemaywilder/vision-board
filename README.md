@@ -15,7 +15,7 @@ Vision board and learning resource saving app using React, Express, MySQL, with 
 
 [License Information](#license-information)
 
-[CThe Team](#the-time)
+[The Team](#the-team)
 
 [Questions](#questions)
 
