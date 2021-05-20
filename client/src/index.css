@@ -26,3 +26,7 @@
 .deleteImgBtn, .deleteUploadBtn, .deleteLinkBtn  {
     display: none;
 }
+
+li.collection-header {
+    list-style-type: none;
+}
