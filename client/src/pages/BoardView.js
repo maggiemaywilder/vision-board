@@ -141,11 +141,15 @@ function BoardView() {
 
     const handleBoardUpdate = (e) => {
         e.preventDefault();
-        API.updateBoard(board.id, { name: updatedName })
+        if (updatedName !== "") {
+            API.updateBoard(board.id, { name: updatedName })
             .then((res) => {
                 if (res.data) window.location.reload();
             })
             .catch(err => console.error(err));
+        } else {
+            window.location.reload();
+        }
     }
 
     const handleLogout = (e) => {
