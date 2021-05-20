@@ -1,10 +1,13 @@
 /* eslint-disable no-unused-vars */
 import Nav from '../components/Navbar';
-import { Row, Col, Card, CardTitle, Collection, CollectionItem, TextInput, Button, Icon } from 'react-materialize';
+import { Row, Col, Card, CardPanel, CardTitle, Collection, CollectionItem, TextInput, Button, Icon } from 'react-materialize';
 import { useHistory, useParams } from "react-router-dom";
 import { useState, useEffect, useRef } from 'react';
 import { useUserContext } from '../utils/GlobalState';
 import API from '../utils/API';
+import MyDropzone from '../components/MyDropzone';
+import PixabaySearch from '../components/PixabaySearch';
+import UserLinks from '../components/UserLinks';
 import M from 'materialize-css';
 
 function BoardView() {
@@ -18,6 +21,7 @@ function BoardView() {
     const [currentImages, setCurrentImages] = useState();
     const [currentLinks, setCurrentLinks] = useState();
     const [updatedName, setUpdatedName] = useState("");
+    const [isEditing, setIsEditing] = useState(false)
     const history = useHistory();
 
     useEffect(() => {
@@ -97,6 +101,24 @@ function BoardView() {
         document.querySelector('#boardViewRename').style.display = "inline";
         document.querySelector('#boardSaveBtn').style.display = "inline";
         e.target.style.display = 'none';
+        setIsEditing(true);
+    }
+    
+    const handleImgSave = (e) => {
+        e.preventDefault();
+        e.persist();
+        const newImgUrl = e.target.parentNode.parentNode.getAttribute('id')
+        API.newImage({ img: newImgUrl, bid: board.id })
+            .then((res) => {
+                if (res.data) {
+                    M.toast({ html: `Image saved to ${board.name} successfully!` });
+                    e.target.parentNode.parentNode.style.opacity = "0.2";
+                    e.target.style.visibility = "hidden";
+                } else {
+                    M.toast({ html: "Hmm, we ran into an issue saving that image. Please try again." })
+                }
+            })
+            .catch(err => console.error(err))
     }
 
     const handleUploadDel = (e) => {
@@ -141,11 +163,15 @@ function BoardView() {
 
     const handleBoardUpdate = (e) => {
         e.preventDefault();
-        API.updateBoard(board.id, { name: updatedName })
+        if (updatedName !== "") {
+            API.updateBoard(board.id, { name: updatedName })
             .then((res) => {
                 if (res.data) window.location.reload();
             })
             .catch(err => console.error(err));
+        } else {
+            window.location.reload();
+        }
     }
 
     const handleLogout = (e) => {
@@ -255,6 +281,30 @@ function BoardView() {
                     </Row>
                 </Col>
             </Row>
+            { isEditing ?
+                <Row>
+                    <Col l={6} s={12}>
+                        <CardPanel className="teal darken-3">
+                            <span className="white-text">
+                                Add Personal Images and Files (PDF, .jpeg, or .png)
+                        </span>
+                        </CardPanel>
+                        <MyDropzone bid={board.id} boardName={board.name} />
+                        <Row>
+                            <CardPanel className="teal darken-3">
+                                <span className="white-text">
+                                    Add Inspiration, Research, or Video Links from the web
+                                </span>
+                            </CardPanel>
+                            <UserLinks bid={board.id} />
+                        </Row>
+                    </Col>
+                    <PixabaySearch handleImgSave={handleImgSave} />
+                </Row>
+                :
+                <div>
+                </div>
+            }
 
         </>
     )
