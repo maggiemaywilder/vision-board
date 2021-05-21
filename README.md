@@ -1,70 +1,75 @@
-# Getting Started with Create React App
+# Vision Boarder
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Description
 
-## Available Scripts
+Vision board and learning resource saving app using React, Express, MySQL, with Express-session and passport user authentication and bcryptsjs password encryption.
 
-In the project directory, you can run:
+[![License](https://img.shields.io/badge/license-MIT-blueviolet.svg)](https://opensource.org/licenses/MIT)
 
-### `npm start`
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+## Table of Contents
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+[Installation Guide](#installation-guide)
 
-### `npm test`
+[Dependencies](#dependencies)
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+[License Information](#license-information)
 
-### `npm run build`
+[The Team](#the-team)
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+[Questions](#questions)
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## Installation Guide
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+To install dependencies, run npm install.
 
-### `npm run eject`
+## Dependencies
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+axios
+bcryptsjs
+concurrently
+dotenv
+dropzone
+express
+express-session
+firebase
+materialize
+if-env
+mysql2
+nodemon
+passport
+passport-local
+react
+react-dom
+react-dropzone
+react-materialize
+react-router
+react-router-dom
+react-scripts
+sequelize
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+## License Information
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+Notice: This application is covered under the MIT license.
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+ [License: MIT](https://opensource.org/licenses/MIT)
 
-## Learn More
+## The team
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+![image](https://avatars.githubusercontent.com/u/66137019?v=4)
+Ian E Von Fange: [eliaswolfgang](https://github.com/eliaswolfgang)
+![image](https://avatars.githubusercontent.com/u/73676027?v=4)
+Jourdan Gundersen: [jourdangundersen](https://github.com/jourdangundersen)
+![image](https://avatars.githubusercontent.com/u/74584167?v=4)
+Lucas Plumb: [Lplumb](https://github.com/Lplumb)
+![image](https://avatars.githubusercontent.com/u/72891601?v=4)
+Maggie Wilder: [maggiemaywilder](https://github.com/maggiemaywilder)
 
-To learn React, check out the [React documentation](https://reactjs.org/).
 
-### Code Splitting
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
 
-### Analyzing the Bundle Size
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+## Questions
 
-### Making a Progressive Web App
+If you have any questions, please feel free to reach out to a member of the team.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)

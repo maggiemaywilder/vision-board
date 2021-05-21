@@ -1,0 +1,32 @@
+#dropzone, #nosearch {
+    text-align: center;
+}
+
+#dropzone, #pixabay {
+    border: 5px solid #f4a460;
+}
+
+#boardViewName {
+    text-align: center;
+}
+
+#boardViewRename, #boardSaveBtn {
+    display: none;
+}
+
+.imgCardTitle {
+    color: #f4a460;
+}
+
+.pix {
+    max-width: 75%;
+    margin: auto;
+}
+
+.deleteImgBtn, .deleteUploadBtn, .deleteLinkBtn  {
+    display: none;
+}
+
+li.collection-header {
+    list-style-type: none;
+}
