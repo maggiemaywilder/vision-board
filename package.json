@@ -5,6 +5,7 @@
   "engines": {
     "node": "14.15.1"
   },
+  "homepage": "https://vision-board-learning-place.herokuapp.com/",
   "main": "server.js",
   "scripts": {
     "start": "if-env NODE_ENV=production && npm run start:prod || npm run start:dev",
