@@ -3,9 +3,9 @@
   "version": "1.0.0",
   "description": "",
   "engines": {
-    "node": "14.15.1"
+    "node": "12.21.0"
   },
-  "homepage": "https://vision-board-learning-place.herokuapp.com/",
+  "homepage": "https://vision-board-learning-place.herokuapp.com",
   "main": "server.js",
   "scripts": {
     "start": "if-env NODE_ENV=production && npm run start:prod || npm run start:dev",
