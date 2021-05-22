@@ -303,7 +303,7 @@ function BoardView() {
                     <Col l={6} s={12}>
                         <CardPanel className="teal darken-3">
                             <span className="white-text">
-                                Add Personal Images and Files (PDF, .jpeg, or .png)
+                                Add Personal Images (.jpeg, or .png)
                         </span>
                         </CardPanel>
                         <MyDropzone bid={board.id} boardName={board.name} />
