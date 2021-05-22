@@ -59,12 +59,12 @@ export default {
     return axios.delete(`/api/images/${iid}`)
   },
   // Add a new tag
-  newTag: function (mediaId, tagData) {
-    return axios.post(`/api/tags/${mediaId}`, tagData);
+  newTag: function (bid, tagData) {
+    return axios.post(`/api/tags/${bid}`, tagData);
   },
   // Get all tags linked to a piece of media
-  getTags: function(mid) {
-    return axios.get(`/api/media/${mid}`)
+  getTags: function(bid) {
+    return axios.get(`/api/${bid}/tags`)
   },
   // Delete a tag
   deleteTag: function (tagId) {

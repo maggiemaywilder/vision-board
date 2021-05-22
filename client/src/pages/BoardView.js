@@ -2,12 +2,14 @@
 import Nav from '../components/Navbar';
 import { Row, Col, Card, CardPanel, CardTitle, Collection, CollectionItem, TextInput, Button, Icon } from 'react-materialize';
 import { useHistory, useParams } from "react-router-dom";
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect } from 'react';
 import { useUserContext } from '../utils/GlobalState';
 import API from '../utils/API';
 import MyDropzone from '../components/MyDropzone';
 import PixabaySearch from '../components/PixabaySearch';
 import UserLinks from '../components/UserLinks';
+import AddTags from '../components/AddTags';
+import BoardTags from '../components/BoardTags';
 import M from 'materialize-css';
 
 function BoardView() {
@@ -21,7 +23,7 @@ function BoardView() {
     const [currentImages, setCurrentImages] = useState();
     const [currentLinks, setCurrentLinks] = useState();
     const [updatedName, setUpdatedName] = useState("");
-    const [isEditing, setIsEditing] = useState(false)
+    const [isEditing, setIsEditing] = useState(false);
     const history = useHistory();
 
     useEffect(() => {
@@ -103,7 +105,7 @@ function BoardView() {
         e.target.style.display = 'none';
         setIsEditing(true);
     }
-    
+
     const handleImgSave = (e) => {
         e.preventDefault();
         e.persist();
@@ -165,10 +167,10 @@ function BoardView() {
         e.preventDefault();
         if (updatedName !== "") {
             API.updateBoard(board.id, { name: updatedName })
-            .then((res) => {
-                if (res.data) window.location.reload();
-            })
-            .catch(err => console.error(err));
+                .then((res) => {
+                    if (res.data) window.location.reload();
+                })
+                .catch(err => console.error(err));
         } else {
             window.location.reload();
         }
@@ -250,7 +252,6 @@ function BoardView() {
                                     horizontal
                                     className="hoverable boardViewImg"
                                 >
-                                    Tags:
                                 </Card>
                             )) :
                             <h4>Loading images...</h4>
@@ -278,6 +279,22 @@ function BoardView() {
                                 </div>
                             }
                         </Collection>
+                    </Row>
+                    <Row>
+                        { board ?
+                        <div id="currentBoardTags">
+                            <h4>Tags</h4>
+                            <Row>
+                                <BoardTags boardID={board.id} boardName={board.name} />
+                            </Row>
+                            <Row>
+                                <AddTags boardID={board.id} boardName={board.name} />
+                            </Row>
+                        </div>
+                            :
+                            <p>Loading tags...</p>
+                        }
+                        
                     </Row>
                 </Col>
             </Row>

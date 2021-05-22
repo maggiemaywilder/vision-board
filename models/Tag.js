@@ -4,9 +4,7 @@ module.exports = (sequelize, DataTypes) => {
     });
 
     Tag.associate = (models) => {
-        Tag.belongsToMany(models.Board, { through: 'Tag_Board'});
-
-        Tag.belongsTo(models.Upload);
+        Tag.belongsTo(models.Board)
     };
 
     return Tag;
