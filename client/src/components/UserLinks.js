@@ -57,7 +57,7 @@ function UserLinks(props) {
                             outDuration: 250
                         }
                     }}
-                    value=""
+                    value="Inspiration"
                 >
                     <option value="inspiration">
                         Inspiration
