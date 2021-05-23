@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import Nav from '../components/Navbar';
 import MyDropzone from '../components/MyDropzone';
 import PixabaySearch from '../components/PixabaySearch';
@@ -135,7 +136,7 @@ function NewBoard() {
                 <Col l={6} s={12}>
                     <CardPanel className="teal darken-3">
                         <span className="white-text">
-                            Add Personal Images and Files (PDF, .jpeg, or .png)
+                            Add Personal Images (.jpeg, or .png)
                     </span>
                     </CardPanel>
                     <MyDropzone bid={currentBoard.id} boardName={boardName} />
