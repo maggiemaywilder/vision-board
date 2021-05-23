@@ -4,6 +4,7 @@ const imagesDB = require("../controller/imgController.js");
 const isAuthenticated = require('../config/middleware/auth');
 const passport = require('../config/passport');
 const path = require('path');
+const { Op } = require('sequelize');
 const db = require('../models');
 
 router.get("/api/allImage", (req, res) => {
@@ -85,6 +86,19 @@ router.get('/api/:bid/links', async (req, res) => {
       }
     });
     res.json(currentLinks);
+  } catch (err) {
+    console.error(err)
+  }
+});
+
+router.get('/api/:bid/tags', async (req, res) => {
+  try {
+    let currentTags = await db.Tag.findAll({
+      where: {
+        BoardId: parseInt(req.params.bid)
+      }
+    });
+    res.json(currentTags);
   } catch (err) {
     console.error(err)
   }
@@ -213,16 +227,17 @@ router.post('/api/:bid/links', async (req, res) => {
 });
 
 
-router.post('api/tags/', async (req, res) => {
+router.post('/api/tags/:bid', async (req, res) => {
   try {
     let newTag = await db.Tag.create({
-      tagName: req.body.text
+      tagName: req.body.text,
+      BoardId: parseInt(req.params.bid),
     });
     res.json(newTag);
   } catch(err) {
     console.error(err)
   }
-})
+});
 
 router.delete('/api/uploads/:mid', async (req, res) => {
   try {
@@ -266,14 +281,14 @@ router.delete('/api/links/:lid', async (req, res) => {
 
 router.delete('/api/tags/:tagId', async (req, res) => {
   try {
-    let deleteTag = await db.Tag.delete({
+    let deleteTag = await db.Tag.destroy({
       where: {
-        name: req.body.name
+        id: parseInt(req.params.tagId)
       }
      });
-     res.join(deleteTag);
+     res.json(deleteTag);
   } catch (err) {
-    console.error(err)
+    console.error(err);
   }
 
 });

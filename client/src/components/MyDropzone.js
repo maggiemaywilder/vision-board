@@ -17,7 +17,7 @@ function MyDropzone(props) {
     isDragReject,
   } = useDropzone({
     onDrop,
-    accept: 'image/jpeg, image/png, application/pdf'
+    accept: 'image/jpeg, image/png'
   });
 
   const handleUpload = (e) => {
