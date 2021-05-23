@@ -1,5 +1,5 @@
 module.exports = (sequelize, DataTypes) => {
-    // this is things added via dropzone
+    // this is things added via manual entry
     const Link = sequelize.define('Link', {
         text: DataTypes.STRING(1234),
         url: {
