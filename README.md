@@ -2,7 +2,7 @@
 
 ## Description
 
-Vision board and learning resource saving app using React, Express, MySQL, with Express-session and passport user authentication and bcryptsjs password encryption.
+Create a vision board complete with the learning resources and inspiration you need to help you realize it. Uses React, Express, MySQL, with Express-session and passport user authentication and bcryptsjs password encryption.
 
 [![License](https://img.shields.io/badge/license-MIT-blueviolet.svg)](https://opensource.org/licenses/MIT)
 
