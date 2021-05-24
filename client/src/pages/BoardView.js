@@ -42,12 +42,13 @@ function BoardView() {
                     })
                     .catch(err => console.error(err));
             })
-            .then(() => {
-                API.getUploads(bid)
-                    .then((res) => {
-                        setCurrentUploads(res.data);
-                    })
-                    .catch(err => console.error(err));
+            .catch(err => console.error(err))
+    }, [bid]);
+
+    useEffect(() => {
+        API.getUploads(bid)
+            .then((res) => {
+                setCurrentUploads(res.data);
             })
             .then(() => {
                 API.getImages(bid)
@@ -63,7 +64,7 @@ function BoardView() {
                     })
                     .catch(err => console.error(err));
             })
-            .catch(err => console.error(err))
+            .catch(err => console.error(err));
     }, [bid]);
 
     const handleBoardSelect = (e) => {
