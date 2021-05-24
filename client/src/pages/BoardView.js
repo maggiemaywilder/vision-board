@@ -42,22 +42,28 @@ function BoardView() {
                     })
                     .catch(err => console.error(err));
             })
-            .catch(err => console.error(err));
-        API.getUploads(bid)
-            .then((res) => {
-                setCurrentUploads(res.data);
+            .then(() => {
+                API.getUploads(bid)
+                    .then((res) => {
+                        setCurrentUploads(res.data);
+                    })
+                    .catch(err => console.error(err));
             })
-            .catch(err => console.error(err));
-        API.getImages(bid)
-            .then((res) => {
-                setCurrentImages(res.data)
+            .then(() => {
+                API.getImages(bid)
+                    .then((res) => {
+                        setCurrentImages(res.data)
+                    })
+                    .catch(err => console.error(err));
             })
-            .catch(err => console.error(err));
-        API.getLinks(bid)
-            .then((res) => {
-                setCurrentLinks(res.data)
+            .then(() => {
+                API.getLinks(bid)
+                    .then((res) => {
+                        setCurrentLinks(res.data)
+                    })
+                    .catch(err => console.error(err));
             })
-            .catch(err => console.error(err));
+            .catch(err => console.error(err))
     }, [bid]);
 
     const handleBoardSelect = (e) => {
@@ -280,20 +286,20 @@ function BoardView() {
                         </Collection>
                     </Row>
                     <Row>
-                        { board ?
-                        <div id="currentBoardTags">
-                            <h4>Tags</h4>
-                            <Row>
-                                <BoardTags boardID={board.id} boardName={board.name} />
-                            </Row>
-                            <Row>
-                                <AddTags boardID={board.id} boardName={board.name} />
-                            </Row>
-                        </div>
+                        {board ?
+                            <div id="currentBoardTags">
+                                <h4>Tags</h4>
+                                <Row>
+                                    <BoardTags boardID={board.id} boardName={board.name} />
+                                </Row>
+                                <Row>
+                                    <AddTags boardID={board.id} boardName={board.name} />
+                                </Row>
+                            </div>
                             :
                             <p>Loading tags...</p>
                         }
-                        
+
                     </Row>
                 </Col>
             </Row>
