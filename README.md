@@ -26,28 +26,28 @@ To install dependencies, run npm install.
 
 ## Dependencies
 
-axios
-bcryptsjs
-concurrently
-dotenv
-dropzone
-express
-express-session
-firebase
-materialize
-if-env
-mysql2
-nodemon
-passport
-passport-local
-react
-react-dom
-react-dropzone
-react-materialize
-react-router
-react-router-dom
-react-scripts
-sequelize
+    * axios
+    * bcryptsjs
+    * concurrently
+    * dotenv
+    * dropzone
+    * express
+    * express-session
+    * firebase
+    * materialize
+    * if-env
+    * mysql2
+    * nodemon
+    * passport
+    * passport-local
+    * react
+    * react-dom
+    * react-dropzone
+    * react-materialize
+    * react-router
+    * react-router-dom
+    * react-scripts
+    * sequelize
 
 ## License Information
 

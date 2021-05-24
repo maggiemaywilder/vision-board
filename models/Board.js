@@ -18,7 +18,7 @@ module.exports = (sequelize, DataTypes) => {
 
         Board.hasMany(models.Upload);
         Board.hasMany(models.Image);
-        Board.hasMany(models.ManualEntry);
+        Board.hasMany(models.Link);
         Board.hasMany(models.Tag);
     };
 
