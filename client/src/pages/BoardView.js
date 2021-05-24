@@ -225,7 +225,6 @@ function BoardView() {
                                 horizontal
                                 className="hoverable boardViewUpload"
                             >
-                                Tags:
                             </Card>
                         )) :
                         <h4>Loading uploads...</h4>
