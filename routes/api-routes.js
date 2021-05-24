@@ -7,12 +7,12 @@ const path = require('path');
 const { Op } = require('sequelize');
 const db = require('../models');
 
-router.get("/allImage", (req, res) => {
+router.get("/api/allImage", (req, res) => {
   response = imagesDB.findAllImages()
   res.send(response)
 });
 
-router.post("/addImage", async ({ body }, res) => {
+router.post("/api/addImage", async ({ body }, res) => {
   try {
     let newImg = await db.Image.create({
       url: body.img,
@@ -25,7 +25,7 @@ router.post("/addImage", async ({ body }, res) => {
 });
 
 // display users' boards
-router.get('/:uid/boards', async (req, res) => {
+router.get('/api/:uid/boards', async (req, res) => {
   try {
     let currentUserBoards = await db.Board.findAll({
       where: {
@@ -39,7 +39,7 @@ router.get('/:uid/boards', async (req, res) => {
 });
 
 // batch of gets for displaying board: notes, tags, and images
-router.get('/:bid/notes', async (req, res) => {
+router.get('/api/:bid/notes', async (req, res) => {
   try {
     let currentNotes = await db.Note.findAll({
       where: {
@@ -52,7 +52,7 @@ router.get('/:bid/notes', async (req, res) => {
   }
 });
 
-router.get('/:bid/uploads', async (req, res) => {
+router.get('/api/:bid/uploads', async (req, res) => {
   try {
     let currentUploads = await db.Upload.findAll({
       where: {
@@ -65,7 +65,7 @@ router.get('/:bid/uploads', async (req, res) => {
   }
 });
 
-router.get('/:bid/images', async (req, res) => {
+router.get('/api/:bid/images', async (req, res) => {
   try {
     let currentImages = await db.Image.findAll({
       where: {
@@ -78,7 +78,7 @@ router.get('/:bid/images', async (req, res) => {
   }
 });
 
-router.get('/:bid/links', async (req, res) => {
+router.get('/api/:bid/links', async (req, res) => {
   try {
     let currentLinks = await db.Link.findAll({
       where: {
@@ -91,7 +91,7 @@ router.get('/:bid/links', async (req, res) => {
   }
 });
 
-router.get('/:bid/tags', async (req, res) => {
+router.get('/api/:bid/tags', async (req, res) => {
   try {
     let currentTags = await db.Tag.findAll({
       where: {
@@ -106,7 +106,7 @@ router.get('/:bid/tags', async (req, res) => {
 
 
 // display specific board 
-router.get('/boards/:bid', async (req, res) => {
+router.get('/api/boards/:bid', async (req, res) => {
   try {
     let currentBoard = await db.Board.findOne({
       where: {
@@ -121,7 +121,7 @@ router.get('/boards/:bid', async (req, res) => {
 
 // since userName is created from first and last name, I think this should be based on userID
 // but since that one is next, do we need this one?
-router.get('/users/:username', async (req, res) => {
+router.get('/api/users/:username', async (req, res) => {
   try {
     let currentUser = db.User.findOne({
       where: {
@@ -134,7 +134,7 @@ router.get('/users/:username', async (req, res) => {
   }
 });
 
-router.get('/users/:uid', async (req, res) => {
+router.get('/api/users/:uid', async (req, res) => {
   try {
     let currentUser = await db.User.findAll({
       where: {
@@ -147,7 +147,7 @@ router.get('/users/:uid', async (req, res) => {
   }
 });
 
-router.post('/login', passport.authenticate('local'), (req, res) => {
+router.post('/api/login', passport.authenticate('local'), (req, res) => {
   try {
     if (req.user) {
       res.json(req.user);
@@ -159,7 +159,7 @@ router.post('/login', passport.authenticate('local'), (req, res) => {
   }
 });
 
-router.post('/users', async (req, res) => {
+router.post('/api/users', async (req, res) => {
   try {
     let newUser = await db.User.create({
       firstName: req.body.firstName,
@@ -174,7 +174,7 @@ router.post('/users', async (req, res) => {
   }
 });
 
-router.post('/boards/:uid/new', async (req, res) => {
+router.post('/api/boards/:uid/new', async (req, res) => {
   try {
     let newBoard = await db.Board.create({
       name: "New Board",
@@ -188,7 +188,7 @@ router.post('/boards/:uid/new', async (req, res) => {
 });
 
 //update where if we want to identify by id
-router.put('/boards/:bid', async (req, res) => {
+router.put('/api/boards/:bid', async (req, res) => {
   try {
     let adjustedBoard = await db.Board.update({name: req.body.name}, {
       where: {
@@ -201,7 +201,7 @@ router.put('/boards/:bid', async (req, res) => {
   }
 });
 
-router.post('/:bid/uploads', async (req, res) => {
+router.post('/api/:bid/uploads', async (req, res) => {
   try {
     let newUpload = await db.Upload.create({
       url: req.body.url,
@@ -213,7 +213,7 @@ router.post('/:bid/uploads', async (req, res) => {
   }
 });
 
-router.post('/:bid/links', async (req, res) => {
+router.post('/api/:bid/links', async (req, res) => {
   try {
     let newLink = await db.Link.create({
       url: req.body.url,
@@ -227,7 +227,7 @@ router.post('/:bid/links', async (req, res) => {
 });
 
 
-router.post('/tags/:bid', async (req, res) => {
+router.post('/api/tags/:bid', async (req, res) => {
   try {
     let newTag = await db.Tag.create({
       tagName: req.body.text,
@@ -239,7 +239,7 @@ router.post('/tags/:bid', async (req, res) => {
   }
 });
 
-router.delete('/uploads/:mid', async (req, res) => {
+router.delete('/api/uploads/:mid', async (req, res) => {
   try {
     let deleteUpload = await db.Upload.destroy({
       where: {
@@ -252,7 +252,7 @@ router.delete('/uploads/:mid', async (req, res) => {
   }
 });
 
-router.delete('/images/:iid', async (req, res) => {
+router.delete('/api/images/:iid', async (req, res) => {
   try {
     let deleteImg = await db.Image.destroy({
       where: {
@@ -265,7 +265,7 @@ router.delete('/images/:iid', async (req, res) => {
   }
 });
 
-router.delete('/links/:lid', async (req, res) => {
+router.delete('/api/links/:lid', async (req, res) => {
   try {
     let deleteLink = await db.Link.destroy({
       where: {
@@ -279,7 +279,7 @@ router.delete('/links/:lid', async (req, res) => {
 });
 
 
-router.delete('/tags/:tagId', async (req, res) => {
+router.delete('/api/tags/:tagId', async (req, res) => {
   try {
     let deleteTag = await db.Tag.destroy({
       where: {
@@ -296,7 +296,7 @@ router.delete('/tags/:tagId', async (req, res) => {
 // Send every other request to the React app
 // Define any API routes before this runs
 router.get("*", isAuthenticated, (req, res) => {
-  res.sendFile(path.join(__dirname, "../client/public/index.html"));
+  res.sendFile(path.join(__dirname, "../client/build/index.html"));
 });
 
 module.exports = router;
