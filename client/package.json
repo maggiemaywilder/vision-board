@@ -2,7 +2,14 @@
   "name": "vision-board",
   "version": "0.1.0",
   "private": true,
-  "proxy": "http://localhost:3001",
+  "proxy": {
+      "/api": {
+        "target": "https://vision-board-learning-place.herokuapp.com",
+        "pathRewrite": {
+          "^/api": "/"
+        }
+      }
+    },
   "dependencies": {
     "@testing-library/jest-dom": "^5.12.0",
     "@testing-library/react": "^11.2.6",
