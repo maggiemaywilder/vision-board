@@ -317,9 +317,9 @@ router.post('/api/uploads/:uid/notes', async (req, res) => {
   }
 });
 
-router.get('/api/:iid/notes', async (req, res) => {
+router.get('/api/images/:iid/notes', async (req, res) => {
   try {
-    let imageNotes = db.Note.findAll({
+    let imageNotes = await db.Note.findAll({
       where: {
         ImageId: parseInt(req.params.iid)
       }
@@ -330,9 +330,9 @@ router.get('/api/:iid/notes', async (req, res) => {
   }
 });
 
-router.get('/api/:uid/notes', async (req, res) => {
+router.get('/api/uploads/:uid/notes', async (req, res) => {
   try {
-    let uploadNotes = db.Note.findAll({
+    let uploadNotes = await db.Note.findAll({
       where: {
         UploadId: parseInt(req.params.uid)
       }

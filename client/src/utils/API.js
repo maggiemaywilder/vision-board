@@ -89,5 +89,13 @@ export default {
   // New note on an upload
   newUploadNote: function(uid, noteData) {
     return axios.post(`/api/uploads/${uid}/notes`, noteData)
+  },
+  // Get all notes related to an image
+  getImgNotes: function(iid) {
+    return axios.get(`/api/images/${iid}/notes`)
+  },
+  // Get all notes related to an upload
+  getUploadNotes: function(uid) {
+    return axios.get(`/api/uploads/${uid}/notes`)
   }
 };

@@ -10,6 +10,8 @@ import PixabaySearch from '../components/PixabaySearch';
 import UserLinks from '../components/UserLinks';
 import AddTags from '../components/AddTags';
 import BoardTags from '../components/BoardTags';
+import ImageNotes from '../components/ImageNotes';
+import UploadNotes from '../components/UploadNotes';
 import M from 'materialize-css';
 
 function BoardView() {
@@ -180,22 +182,26 @@ function BoardView() {
         e.preventDefault();
         e.persist();
         const newNoteText = e.target.parentNode.previousElementSibling.childNodes[0].value;
-        const uid = e.target.parentNode.previousElementSibling.childNodes[0].getAttribute('id');
-        API.newUploadNote(uid, {text: newNoteText})
-        .then((res) => {
-            console.log(res);
-        })
-        .catch(err => console.error(err))
+        const uploadID = e.target.parentNode.previousElementSibling.childNodes[0].getAttribute('id').split('-');
+        const uid = uploadID[1];
+        API.newUploadNote(uid, { text: newNoteText })
+            .then((res) => {
+                console.log(res);
+                window.location.reload();
+            })
+            .catch(err => console.error(err))
     }
 
     const handleNewImgNote = (e) => {
         const newNoteText = e.target.parentNode.previousElementSibling.childNodes[0].value;
-        const iid = e.target.parentNode.previousElementSibling.childNodes[0].getAttribute('id');
-        API.newImgNote(iid, {text: newNoteText})
-        .then((res) => {
-            console.log(res);
-        })
-        .catch(err => console.error(err))
+        const imageID = e.target.parentNode.previousElementSibling.childNodes[0].getAttribute('id').split('-');
+        const iid = imageID[1]
+        API.newImgNote(iid, { text: newNoteText })
+            .then((res) => {
+                console.log(res);
+                window.location.reload();
+            })
+            .catch(err => console.error(err))
     }
 
     const handleLogout = (e) => {
@@ -247,8 +253,10 @@ function BoardView() {
                                 horizontal
                                 className="hoverable boardViewUpload"
                             >
+                                <Row>
                                 <Textarea
-                                    id={u.id}
+                                    id={`upload-${u.id}`}
+                                    data-id={u.id}
                                     label="Add a note..."
                                 />
                                 <Button
@@ -260,6 +268,13 @@ function BoardView() {
                                     waves="light"
                                     onClick={handleNewUploadNote}
                                 />
+                                </Row>
+                                <Row>
+                                    <Col>
+                                        <UploadNotes uid={u.id} />
+                                    </Col>
+                                </Row>
+
                             </Card>
                         )) :
                         <h4>Loading uploads...</h4>
@@ -286,8 +301,10 @@ function BoardView() {
                                     horizontal
                                     className="hoverable boardViewImg"
                                 >
+                                    <Row>
                                     <Textarea
-                                        id={i.id}
+                                        id={`image-${i.id}`}
+                                        data-id={i.id}
                                         label="Add a note..."
                                     />
                                     <Button
@@ -299,6 +316,13 @@ function BoardView() {
                                         waves="light"
                                         onClick={handleNewImgNote}
                                     />
+                                    </Row>
+                                    <Row>
+                                        <Col>
+                                            <ImageNotes iid={i.id} />
+                                        </Col>
+                                    </Row>
+
                                 </Card>
                             )) :
                             <h4>Loading images...</h4>
