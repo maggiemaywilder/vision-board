@@ -1,7 +1,6 @@
 module.exports = (sequelize, DataTypes) => {
     // this is things added via dropzone
     const Link = sequelize.define('Link', {
-        text: DataTypes.STRING(1234),
         url: {
             type: DataTypes.STRING,
             allowNull: false
