@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
 import Nav from '../components/Navbar';
-import { Row, Col, Card, CardPanel, CardTitle, Collection, CollectionItem, TextInput, Button, Icon } from 'react-materialize';
+import { Row, Col, Card, CardPanel, CardTitle, Collection, CollectionItem, TextInput, Button, Icon, Textarea } from 'react-materialize';
 import { useHistory, useParams } from "react-router-dom";
 import { useState, useEffect } from 'react';
 import { useUserContext } from '../utils/GlobalState';
@@ -176,6 +176,28 @@ function BoardView() {
         }
     }
 
+    const handleNewUploadNote = (e) => {
+        e.preventDefault();
+        e.persist();
+        const newNoteText = e.target.parentNode.previousElementSibling.childNodes[0].value;
+        const uid = e.target.parentNode.previousElementSibling.childNodes[0].getAttribute('id');
+        API.newUploadNote(uid, {text: newNoteText})
+        .then((res) => {
+            console.log(res);
+        })
+        .catch(err => console.error(err))
+    }
+
+    const handleNewImgNote = (e) => {
+        const newNoteText = e.target.parentNode.previousElementSibling.childNodes[0].value;
+        const iid = e.target.parentNode.previousElementSibling.childNodes[0].getAttribute('id');
+        API.newImgNote(iid, {text: newNoteText})
+        .then((res) => {
+            console.log(res);
+        })
+        .catch(err => console.error(err))
+    }
+
     const handleLogout = (e) => {
         e.preventDefault();
         history.push('/');
@@ -225,7 +247,19 @@ function BoardView() {
                                 horizontal
                                 className="hoverable boardViewUpload"
                             >
-                                Tags:
+                                <Textarea
+                                    id={u.id}
+                                    label="Add a note..."
+                                />
+                                <Button
+                                    className="red"
+                                    floating
+                                    icon={<Icon>add</Icon>}
+                                    small
+                                    node="button"
+                                    waves="light"
+                                    onClick={handleNewUploadNote}
+                                />
                             </Card>
                         )) :
                         <h4>Loading uploads...</h4>
@@ -252,6 +286,19 @@ function BoardView() {
                                     horizontal
                                     className="hoverable boardViewImg"
                                 >
+                                    <Textarea
+                                        id={i.id}
+                                        label="Add a note..."
+                                    />
+                                    <Button
+                                        className="red"
+                                        floating
+                                        icon={<Icon>add</Icon>}
+                                        small
+                                        node="button"
+                                        waves="light"
+                                        onClick={handleNewImgNote}
+                                    />
                                 </Card>
                             )) :
                             <h4>Loading images...</h4>
@@ -281,20 +328,20 @@ function BoardView() {
                         </Collection>
                     </Row>
                     <Row>
-                        { board ?
-                        <div id="currentBoardTags">
-                            <h4>Tags</h4>
-                            <Row>
-                                <BoardTags boardID={board.id} boardName={board.name} />
-                            </Row>
-                            <Row>
-                                <AddTags boardID={board.id} boardName={board.name} />
-                            </Row>
-                        </div>
+                        {board ?
+                            <div id="currentBoardTags">
+                                <h4>Tags</h4>
+                                <Row>
+                                    <BoardTags boardID={board.id} boardName={board.name} />
+                                </Row>
+                                <Row>
+                                    <AddTags boardID={board.id} boardName={board.name} />
+                                </Row>
+                            </div>
                             :
                             <p>Loading tags...</p>
                         }
-                        
+
                     </Row>
                 </Col>
             </Row>

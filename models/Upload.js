@@ -11,6 +11,7 @@ module.exports = (sequelize, DataTypes) => {
 
     Upload.associate = (models) => {
         Upload.belongsTo(models.Board);
+        Upload.hasMany(models.Note);
 
         Upload.belongsToMany(models.Tag_Board, { through: 'Upload_bridge' });
     };

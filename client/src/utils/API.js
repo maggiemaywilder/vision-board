@@ -81,5 +81,13 @@ export default {
   // Delete a link
   deleteLink: function (linkId) {
     return axios.delete(`/api/links/${linkId}`)
+  },
+  // New note on an image
+  newImgNote: function (iid, noteData) {
+    return axios.post(`/api/images/${iid}/notes`, noteData)
+  },
+  // New note on an upload
+  newUploadNote: function(uid, noteData) {
+    return axios.post(`/api/uploads/${uid}/notes`, noteData)
   }
 };
