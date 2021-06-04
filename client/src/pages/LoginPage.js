@@ -27,6 +27,8 @@ function LoginPage() {
             .then((res) => {
                 if (res.statusCode === 404) {
                     M.toast({html: "Oops! Looks like your account wasn't found. Try again."})
+                } else if (res.statusCode === 401) {
+                    M.toast({html: "Hmm, it looks like your password is incorrect. Try again."})
                 } else {
                     dispatch({ 
                         type: 'setCurrentUser',

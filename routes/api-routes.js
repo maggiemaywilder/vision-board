@@ -293,6 +293,56 @@ router.delete('/api/tags/:tagId', async (req, res) => {
 
 });
 
+router.post('/api/images/:iid/notes', async (req, res) => {
+  try {
+    let newImgNote = await db.Note.create({
+      text: req.body.text,
+      ImageId: parseInt(req.params.iid)
+    });
+    res.json(newImgNote);
+  } catch (err) {
+    console.error(err);
+  }
+});
+
+router.post('/api/uploads/:uid/notes', async (req, res) => {
+  try {
+    let newUploadNote = await db.Note.create({
+      text: req.body.text,
+      UploadId: parseInt(req.params.uid)
+    });
+    res.json(newUploadNote);
+  } catch (err) {
+    console.error(err);
+  }
+});
+
+router.get('/api/images/:iid/notes', async (req, res) => {
+  try {
+    let imageNotes = await db.Note.findAll({
+      where: {
+        ImageId: parseInt(req.params.iid)
+      }
+    });
+    res.json(imageNotes)
+  } catch (err) {
+    console.error(err);
+  }
+});
+
+router.get('/api/uploads/:uid/notes', async (req, res) => {
+  try {
+    let uploadNotes = await db.Note.findAll({
+      where: {
+        UploadId: parseInt(req.params.uid)
+      }
+    });
+    res.json(uploadNotes);
+  } catch (err) {
+    console.error(err);
+  }
+});
+
 // Send every other request to the React app
 // Define any API routes before this runs
 router.get("*", isAuthenticated, (req, res) => {

@@ -1,7 +1,6 @@
 module.exports = (sequelize, DataTypes) => {
     // this is things added via manual entry
     const Link = sequelize.define('Link', {
-        type: DataTypes.STRING(1234),
         url: {
             type: DataTypes.STRING,
             allowNull: false
